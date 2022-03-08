@@ -39,4 +39,4 @@ given
 and
 and
 when
-then
+then --> ajuste de cenário fixDesenvolvimento
