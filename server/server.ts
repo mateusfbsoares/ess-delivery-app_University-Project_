@@ -24,7 +24,7 @@ app.get('/metodos', function(req, res){
 });
 
 app.get('/metodos/:ident', function(req, res){
-  const Id = req.params.ident;
+  const Id = req.body.ident;
   const metodo = metodosService.getById(Id);
   if (metodo) {
     res.send(metodo);
