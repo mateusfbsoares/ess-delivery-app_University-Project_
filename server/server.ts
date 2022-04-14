@@ -1,8 +1,8 @@
 import express = require('express');
 import bodyParser = require("body-parser");
 
-import { CarService } from './src/cars-service';
-import { Car } from './src/car';
+import { Metodos_PagamentoService } from './src/metodos_pagamento-service';
+import { Metodos_Pagamento } from './src/metodos_pagamento';
 
 var app = express();
 
@@ -16,31 +16,31 @@ app.use(allowCrossDomain);
 
 app.use(bodyParser.json());
 
-var carService: CarService = new CarService();
+var metodosService: Metodos_PagamentoService = new Metodos_PagamentoService();
 
-app.get('/cars', function(req, res){
-  const cars = carService.get();
-  res.send(JSON.stringify(cars));
+app.get('/metodos', function(req, res){
+  const metodos = metodosService.get();
+  res.send(JSON.stringify(metodos));
 });
 
-app.get('/cars/:id', function(req, res){
-  const id = req.params.id;
-  const car = carService.getById(id);
-  if (car) {
-    res.send(car);
+app.get('/metodos/:ident', function(req, res){
+  const Id = req.params.ident;
+  const metodo = metodosService.getById(Id);
+  if (metodo) {
+    res.send(metodo);
   } else {
-    res.status(404).send({ message: `Car ${id} could not be found`});
+    res.status(404).send({ message: `Method ${Id} could not be found`});
   }
 });
 
-app.post('/cars', function(req: express.Request, res: express.Response){
-  const car: Car = <Car> req.body;
+app.post('/metodos', function(req: express.Request, res: express.Response){
+  const metodo: Metodos_Pagamento = <Metodos_Pagamento> req.body;
   try {
-    const result = carService.add(car);
+    const result = metodosService.add(metodo);
     if (result) {
       res.status(201).send(result);
     } else {
-      res.status(403).send({ message: "Car list is full"});
+      res.status(403).send({ message: "Method list is full, method name is already exist or method type is invalid."});
     }
   } catch (err) {
     const {message} = err;
@@ -48,15 +48,30 @@ app.post('/cars', function(req: express.Request, res: express.Response){
   }
 });
 
-app.put('/cars', function (req: express.Request, res: express.Response) {
-  const car: Car = <Car> req.body;
-  const result = carService.update(car);
-  if (result) {
-    res.send(result);
+app.put('/metodos/:ident', function(req: express.Request, res: express.Response){
+  const metodo: Metodos_Pagamento = <Metodos_Pagamento> req.body;
+  const result = metodosService.update(metodo.ident, metodo);
+  if (metodo) {
+    res.send(metodo);
   } else {
-    res.status(404).send({ message: `Car ${car.id} could not be found.`});
+    res.status(404).send({ message: `Inconsistents datas.`});
   }
-})
+});
+
+app.delete('/metodos', function(req: express.Request, res: express.Response){
+  const metodo: Metodos_Pagamento = <Metodos_Pagamento> req.body;
+  try {
+    const result = metodosService.remove(metodo);
+    if (result) {
+      res.status(201).send(result);
+    } else {
+      res.status(403).send({ message: "Method list is void or method does not exist."});
+    }
+  } catch (err) {
+    const {message} = err;
+    res.status(400).send({ message })
+  }
+});
 
 var server = app.listen(3000, function () {
   console.log('Example app listening on port 3000!')
