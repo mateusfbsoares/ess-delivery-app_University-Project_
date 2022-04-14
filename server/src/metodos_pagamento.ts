@@ -1,4 +1,5 @@
 export class Metodos_Pagamento {
+  ident: number
   number: string;
   name_titular: string;
   cvv: number;
