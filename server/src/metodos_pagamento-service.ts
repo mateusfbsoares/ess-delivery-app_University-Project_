@@ -6,7 +6,7 @@ export class Metodos_PagamentoService {
   metodoType: string;
   
   add(metodos_pagamento: Metodos_Pagamento): Metodos_Pagamento {
-    if (this.metodosPagamento.length == 5 || (this.metodoType != "Cartao de Credito" && this.metodoType != "Cartao de Debito" && this.metodoType != "Pix" && this.metodoType != "PicPay" && this.metodoType != "PayPal")) {
+    if (this.metodosPagamento.length == 5 || this.getByName(this.metodoName) != null || (this.metodoType != "Cartao de Credito" && this.metodoType != "Cartao de Debito" && this.metodoType != "Pix" && this.metodoType != "PicPay" && this.metodoType != "PayPal")) {
       return null;
     }
     const newMetodo = new Metodos_Pagamento(<Metodos_Pagamento> { type: this.metodoType, name: this.metodoName, ...metodos_pagamento });
@@ -18,6 +18,14 @@ export class Metodos_PagamentoService {
     var result: Metodos_Pagamento = this.getByName(metodos_pagamento.name);
     if (result) {
       result.update(metodos_pagamento);     
+    }
+    return result;
+  }
+
+  remove(metodos_pagamento: Metodos_Pagamento): Metodos_Pagamento {
+    var result: Metodos_Pagamento = this.getByName(metodos_pagamento.name);
+    if (result) {
+      this.metodosPagamento.splice(this.metodosPagamento.findIndex(result[0]),1);
     }
     return result;
   }
