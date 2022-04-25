@@ -2,7 +2,7 @@ export class Metodos_Pagamento {
   ident: number
   number: string;
   name_titular: string;
-  cvv: number;
+  cvv: string;
   flag: string;
   name: string;
   email: string;
