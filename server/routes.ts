@@ -1,19 +1,23 @@
 import { Router } from 'express';
-import { Metodos_PagamentoService } from './src/metodos_pagamento-service';
 import { Metodos_Pagamento } from './src/metodos_pagamento';
+import { UserService } from './src/user-service';
 
 const routes = Router();
 
-var metodosService: Metodos_PagamentoService = new Metodos_PagamentoService();
+var usersService: UserService = new UserService();
 
-routes.get('/metodos', function(req, res){
-    const metodos = metodosService.get();
+routes.get('/user/:id/metodos', function(req, res){
+    const userId = req.params.id;
+    const index = usersService.getUserIndex(userId);
+    const metodos = usersService.users[index].metodos_de_pagamento.get();
     res.send(JSON.stringify(metodos));
   });
   
-  routes.get('/metodos/:ident', function(req, res){
-    const Id = <number> req.body.ident;
-    const metodo = metodosService.getById(Id);
+  routes.get('/user/:id/metodos/:ident', function(req, res){
+    const userId = req.params.id;
+    const index = usersService.getUserIndex(userId);
+    const Id = req.params.ident;
+    const metodo = usersService.users[index].metodos_de_pagamento.getById(Id);
     if (metodo) {
       res.send(metodo);
     } else {
@@ -21,10 +25,12 @@ routes.get('/metodos', function(req, res){
     }
   });
   
-  routes.post('/metodos', function(req, res){
+  routes.post('/user/:id/metodos', function(req, res){
+    const userId = req.params.id;
+    const index = usersService.getUserIndex(userId);
     const metodo: Metodos_Pagamento = <Metodos_Pagamento> req.body;
     try {
-      const result = metodosService.add(metodo);
+      const result = usersService.users[index].metodos_de_pagamento.add(metodo);
       if (result) {
         res.status(201).send(result);
       } else {
@@ -36,20 +42,24 @@ routes.get('/metodos', function(req, res){
     }
   });
   
-  routes.put('/metodos/:ident', function(req, res){
+  routes.put('/user/:id/metodos/:ident', function(req, res){
+    const userId = req.params.id;
+    const index = usersService.getUserIndex(userId);
     const metodo: Metodos_Pagamento = <Metodos_Pagamento> req.body;
-    const result = metodosService.update(metodo.ident, metodo);
-    if (metodo) {
+    const result = usersService.users[index].metodos_de_pagamento.update(metodo.ident, metodo);
+    if (result) {
       res.send(metodo);
     } else {
       res.status(404).send({ message: `Inconsistents datas.`});
     }
   });
   
-  routes.delete('/metodos', function(req, res){
+  routes.delete('/user/:id/metodos', function(req, res){
+    const userId = req.params.id;
+    const index = usersService.getUserIndex(userId);
     const metodo: Metodos_Pagamento = <Metodos_Pagamento> req.body;
     try {
-      const result = metodosService.remove(metodo);
+      const result = usersService.users[index].metodos_de_pagamento.remove(metodo);
       if (result) {
         res.status(201).send(result);
       } else {
