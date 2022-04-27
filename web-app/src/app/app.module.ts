@@ -9,12 +9,14 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CarsComponent } from './cars/cars.component';
 import { CarService } from './cars/cars.service';
+import { ClientIdComponent } from './client-id/client-id.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    CarsComponent
+    CarsComponent,
+    ClientIdComponent
   ],
   imports: [
     BrowserModule,
@@ -25,6 +27,10 @@ import { CarService } from './cars/cars.service';
       {
         path: 'cars',
         component: CarsComponent
+      },
+      {
+        path: 'user',
+        component: ClientIdComponent
       }
     ])
   ],
