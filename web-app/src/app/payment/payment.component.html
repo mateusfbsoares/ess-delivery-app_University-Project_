@@ -1,0 +1,18 @@
+<div mat-button class="logo-container" name="home" routerLink="/home">
+  <img alt="Logo" src="/assets/images/logo.svg"/>
+</div>
+<h2 class="header-home">Dados do pagamentos (carrinho de items)</h2>
+<div class="forms-block">
+  <label for="metodos">Forma de pagamento:</label>
+  <select name="metods">
+    <option value="valor1">Valor 1</option>
+    <option value="valor2">Valor 2</option>
+    <option value="valor3">Valor 3</option>
+  </select>  
+  <div class="buttons-container">
+    <a routerLink ="/addpayment"  class="confirm-link" (click)="createCar(car)">
+      <img alt="Ícone de cartão de crédito" src="/assets/icons/credit-card.svg"/>
+      Adicionar método de pagamento
+  </a>
+  </div>
+</div>

@@ -9,6 +9,8 @@ export class ClientIdComponent implements OnInit {
 
   constructor() { }
 
+  clientId:number;
+
   ngOnInit() {
   }
 

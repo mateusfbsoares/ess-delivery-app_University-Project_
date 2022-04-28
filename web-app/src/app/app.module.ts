@@ -10,13 +10,21 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { CarsComponent } from './cars/cars.component';
 import { CarService } from './cars/cars.service';
 import { ClientIdComponent } from './client-id/client-id.component';
+import { HomeComponent } from './home/home.component';
+import { PaymentComponent } from './payment/payment.component';
+import { AddpaymentComponent } from './addpayment/addpayment.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     CarsComponent,
-    ClientIdComponent
+    ClientIdComponent,
+    HomeComponent,
+    PaymentComponent,
+    AddpaymentComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -31,6 +39,18 @@ import { ClientIdComponent } from './client-id/client-id.component';
       {
         path: 'user',
         component: ClientIdComponent
+      },
+      {
+        path: 'user/:id',
+        component: PaymentComponent
+      },
+      {
+        path: 'addpayment',
+        component: AddpaymentComponent
+      },
+      {
+        path: 'home',
+        component: HomeComponent
       }
     ])
   ],
