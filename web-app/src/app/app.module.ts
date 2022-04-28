@@ -13,6 +13,8 @@ import { ClientIdComponent } from './client-id/client-id.component';
 import { HomeComponent } from './home/home.component';
 import { PaymentComponent } from './payment/payment.component';
 import { AddpaymentComponent } from './addpayment/addpayment.component';
+import { InsertcreditComponent } from './insertcredit/insertcredit.component';
+import { InsertdebitComponent } from './insertdebit/insertdebit.component';
 
 
 @NgModule({
@@ -24,6 +26,8 @@ import { AddpaymentComponent } from './addpayment/addpayment.component';
     HomeComponent,
     PaymentComponent,
     AddpaymentComponent,
+    InsertcreditComponent,
+    InsertdebitComponent,
     
   ],
   imports: [
@@ -47,6 +51,14 @@ import { AddpaymentComponent } from './addpayment/addpayment.component';
       {
         path: 'addpayment',
         component: AddpaymentComponent
+      },
+      {
+        path: 'addpayment/insertcredit',
+        component: InsertcreditComponent
+      },
+      {
+        path: 'addpayment/insertdebit',
+        component: InsertdebitComponent
       },
       {
         path: 'home',
