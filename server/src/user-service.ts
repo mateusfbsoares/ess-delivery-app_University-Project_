@@ -4,7 +4,17 @@ import crypto = require('crypto');
 import * as fs from 'fs';
 
 export class UserService {
-  users: User[] = [];
+  users: User[] = [{
+    "name": "Mileto",
+    "id": "123",
+    "orders": [],
+    "metodos_de_pagamento" :undefined
+},{
+  "name": "Mateus",
+  "id": "111",
+  "orders": [],
+  "metodos_de_pagamento" :undefined
+}];
   
   // retorna indice do usuario
   getUserIndex(userId: string){

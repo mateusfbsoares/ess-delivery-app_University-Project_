@@ -45,7 +45,7 @@ import { InsertdebitComponent } from './insertdebit/insertdebit.component';
         component: ClientIdComponent
       },
       {
-        path: 'user/:id',
+        path: 'user/pay',
         component: PaymentComponent
       },
       {

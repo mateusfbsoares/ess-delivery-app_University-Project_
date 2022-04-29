@@ -6,13 +6,15 @@ const routes = Router();
 
 var usersService: UserService = new UserService();
 
+//metodos
 routes.get('/user/:id/metodos', function(req, res){
     const userId = req.params.id;
     const index = usersService.getUserIndex(userId);
     const metodos = usersService.users[index].metodos_de_pagamento.get();
     res.send(JSON.stringify(metodos));
   });
-  
+
+//metodo sozinho
   routes.get('/user/:id/metodos/:ident', function(req, res){
     const userId = req.params.id;
     const index = usersService.getUserIndex(userId);
@@ -22,6 +24,27 @@ routes.get('/user/:id/metodos', function(req, res){
       res.send(metodo);
     } else {
       res.status(404).send({ message: `Method ${Id} could not be found`});
+    }
+  });
+
+
+  routes.get('/users', (req, res) => {
+    res.send(usersService.getUsers());
+  });
+
+
+  //get user
+  routes.get('/users/:id', (req, res) => {
+    let id = req.params.id;
+    const user = usersService.getUserById(id);
+  
+    if(user) {
+      const msg = `user found ${user.id}`;
+      res.status(200).send({user:user});
+      console.log();
+    } else {
+      const err = `user not found`;
+      res.send(404).send(err);
     }
   });
   
