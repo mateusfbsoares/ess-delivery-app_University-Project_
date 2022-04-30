@@ -13,15 +13,14 @@ export class PaymentService {
   private currentURL: string;
 
   constructor(private http: Http) {
-    this.currentURL = 'window.location.pathname'; // user/pay
   }
 
-  private _metodo: user = new user();
+  
   //     user/pay
-  getuser(id:number): Promise<user> {
-    return this.http.get(this.taURL + '/user/' + id)
+  getuser(): Promise<user[]> {
+    return this.http.get(this.taURL + "/users/123")
              .toPromise()
-             .then(res => res.json() as user[])
+             .then(res => res.json() as user)
              .catch(this.catch);
   }
   private catch(erro: any): Promise<any>{
