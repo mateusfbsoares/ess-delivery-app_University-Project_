@@ -11,8 +11,8 @@ export interface order {
 }
 
 export class user {
-    name: string;
     id: string;
-    orders: order[];
-    metodos_de_pagamento: Metodos_PagamentoService; 
+    name: string;
+    //metodos_de_pagamento: Metodos_PagamentoService;
+    orders: order[]; 
 }

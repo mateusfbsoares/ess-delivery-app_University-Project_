@@ -40,7 +40,7 @@ routes.get('/user/:id/metodos', function(req, res){
   
     if(user) {
       const msg = `user found ${user.id}`;
-      res.status(200).send({user:user});
+      res.status(200).send(user);
       console.log();
     } else {
       const err = `user not found`;

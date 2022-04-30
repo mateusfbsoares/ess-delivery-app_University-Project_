@@ -6,26 +6,26 @@ import {user} from '../classes/users'
 
 export class ClientIdService {
 
-  private headers = new Headers({'Content-Type': 'application/json'});
+private headers = new Headers({'Content-Type': 'application/json'});
   private taURL = 'http://localhost:3000';
 
   private currentURL: string;
 
   constructor(private http: Http) {
-    this.currentURL = window.location.pathname;
   }
 
-  private _metodo: user = new user();
-
-  getuser(): Promise<user[]> {
-    return this.http.get(this.taURL + this.currentURL)
+  
+  //     user/pay
+  getuser(): Promise<user> {
+    return this.http.get(this.taURL + "/users/123")
              .toPromise()
-             .then(res => res.json() as user[])
+             .then(res => res.json() as user)
              .catch(this.catch);
   }
   private catch(erro: any): Promise<any>{
     console.error('Oops, something went wrong',erro);
     return Promise.reject(erro.message || erro);
   }
+
 
 }

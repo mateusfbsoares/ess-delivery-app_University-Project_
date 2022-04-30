@@ -10,26 +10,24 @@ import { PaymentService } from './payment.service';
 })
 export class PaymentComponent implements OnInit {
 
-  constructor(private router:Router, private aRouter:ActivatedRoute) {}
+  clientId:string;
+  
+  user:user ;
 
-  clientId:number;
-
-  paymentService:PaymentService;
-
-  user1:user;
-  private catch(erro: any): Promise<any>{
-    console.error('Oops, something went wrong',erro);
-    return Promise.reject(erro.message || erro);
+  constructor(private router:Router, private aRouter:ActivatedRoute,private service: PaymentService) {
+   
   }
+
+  goToComponentB(): void {
+    this.service.getuser().then(user => this.router.navigate(['/addpayment'], {state: {user:user}}));
+    console.log(this.user)
+  }
+  
   ngOnInit() {
 
-    this.clientId = window.history.state.data.id;
-    console.log(`deu bom ${this.clientId}`);
-    
-    this.paymentService.getuser(this.clientId).then(res => this.user1 = res)
-    .catch(this.catch);
-     
-    console.log(this.user1.name)
+    this.user = window.history.state['user']
+    console.log("peguei esta merda " + window.history.state.user)
+
   }
 
 }

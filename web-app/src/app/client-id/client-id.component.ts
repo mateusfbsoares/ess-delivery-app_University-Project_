@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ClientIdService } from './client-id.service';
 @Component({
   selector: 'app-client-id',
   templateUrl: './client-id.component.html',
@@ -7,20 +8,16 @@ import { Router } from '@angular/router';
 })
 export class ClientIdComponent implements OnInit {
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,private service:ClientIdService) {}
 
-  clientId:number; 
-
-  
+  clientId:string; 
 
   goToComponentB(): void {
-
-    
-    this.router.navigate(['/user/pay'], {state: {data: {id:this.clientId}}});
+    this.service.getuser().then(user => this.router.navigate(['/user/pay'], {state: {user:user}}));
   }
 
   ngOnInit() {
-    console.log("dale dale");
+    console.log("clientId");
   }
 
 }

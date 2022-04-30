@@ -15,6 +15,7 @@ import { PaymentComponent } from './payment/payment.component';
 import { AddpaymentComponent } from './addpayment/addpayment.component';
 import { InsertcreditComponent } from './insertcredit/insertcredit.component';
 import { InsertdebitComponent } from './insertdebit/insertdebit.component';
+import { ClientIdService } from './client-id/client-id.service';
 
 
 @NgModule({
@@ -66,7 +67,7 @@ import { InsertdebitComponent } from './insertdebit/insertdebit.component';
       }
     ])
   ],
-  providers: [CarService],
+  providers: [CarService,ClientIdService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
