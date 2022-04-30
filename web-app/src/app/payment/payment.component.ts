@@ -14,6 +14,10 @@ export class PaymentComponent implements OnInit {
   
   user:user ;
 
+  sizePayments:number;
+
+  mainPay:string;
+
   constructor(private router:Router, private aRouter:ActivatedRoute,private service: PaymentService) {
    
   }
@@ -25,7 +29,10 @@ export class PaymentComponent implements OnInit {
   
   ngOnInit() {
 
-    this.user = window.history.state['user']
+
+    this.user = window.history.state['user'];
+    this.mainPay = this.user.metodos_de_pagamento.metodosPagamento[0].name;
+    this.sizePayments = this.user.metodos_de_pagamento.metodosPagamento.length;
     console.log(this.user.metodos_de_pagamento.metodosPagamento)    
 
   }

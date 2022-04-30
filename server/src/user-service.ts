@@ -10,7 +10,22 @@ export class UserService {
     id: "123",
     orders: [],
     metodos_de_pagamento : {
-      metodosPagamento: [],
+      metodosPagamento: [{"type":"Cartao de Credito",
+      "name":"nubank",
+      "number":"4004 3334",
+      "name_titular":"matheus ferreira",
+      "cvv":345,
+      "flag":"visa",
+      "email":"",
+      "ident": 0,
+      update:function(metodo_pagamento: Metodos_Pagamento): void {
+        this.name = metodo_pagamento.name;
+        if (this.type == "PicPay"  || this.type == "PayPal") {
+          this.email = metodo_pagamento.email;
+        }
+    }
+
+      }],
       identCount: 0,
       add : function (metodos_pagamento: Metodos_Pagamento): Metodos_Pagamento {
         if (this.metodosPagamento.length == 5 || this.getByName(metodos_pagamento.name) != null || (metodos_pagamento.type != "Cartao de Credito" && metodos_pagamento.type != "Cartao de Debito" && metodos_pagamento.type != "Pix" && metodos_pagamento.type != "PicPay" && metodos_pagamento.type != "PayPal")) {

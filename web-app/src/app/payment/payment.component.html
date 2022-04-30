@@ -23,14 +23,19 @@
   </a>
 </div>
 
-<div class="buttons-container">
- 
-  <select class="form-control">
-    <option *ngFor="let pagamentos of user.metodos_de_pagamento.metodosPagamento" value= {{pagamentos.name}}>
-      {{pagamentos.name}}
-    </option>
- </select>
-</div>
+
+  <div class="selection" > 
+    <h3>Pagamento Padrão:</h3>
+    <div>
+       <select class="options" [(ngModel)]="mainPay" disableRipple>
+          <option *ngFor="let pagamento of user.metodos_de_pagamento.metodosPagamento" [value]="pagamento.name">
+            {{pagamento.name}}
+          </option>
+       </select>
+    </div>   
+  </div>
+
+
 
 
 
