@@ -1,6 +1,6 @@
 import { Coupon } from "./coupon";
 import { product } from "./restaurants";
-import { Metodos_PagamentoService } from "./metodos_pagamento-service";
+import { Metodos_PagamentoService } from "./metodos_PagamentoService";
 
 export interface order {
     id: string;
@@ -13,6 +13,6 @@ export interface order {
 export class user {
     id: string;
     name: string;
-    //metodos_de_pagamento: Metodos_PagamentoService;
+    metodos_de_pagamento: Metodos_PagamentoService;
     orders: order[]; 
 }

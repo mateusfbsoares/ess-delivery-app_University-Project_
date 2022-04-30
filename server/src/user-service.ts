@@ -2,13 +2,58 @@ import { User , Order} from "./users";
 import { Coupon } from "./coupon";
 import crypto = require('crypto');
 import * as fs from 'fs';
+import { Metodos_Pagamento } from "./metodos_pagamento";
 
 export class UserService {
   users: User[] = [{
     name: "Mileto",
     id: "123",
     orders: [],
-    metodos_de_pagamento : undefined
+    metodos_de_pagamento : {
+      metodosPagamento: [],
+      identCount: 0,
+      add : function (metodos_pagamento: Metodos_Pagamento): Metodos_Pagamento {
+        if (this.metodosPagamento.length == 5 || this.getByName(metodos_pagamento.name) != null || (metodos_pagamento.type != "Cartao de Credito" && metodos_pagamento.type != "Cartao de Debito" && metodos_pagamento.type != "Pix" && metodos_pagamento.type != "PicPay" && metodos_pagamento.type != "PayPal")) {
+          return null;
+        }
+        const newMetodo = new Metodos_Pagamento(<Metodos_Pagamento> { ident: this.identCount, type: metodos_pagamento.type, name: metodos_pagamento.name, ...metodos_pagamento });
+        this.identCount = this.identCount+1;
+        this.metodosPagamento.push(newMetodo);
+        return newMetodo;
+      },
+      update: function ( Id: number, metodos_pagamento: Metodos_Pagamento): Metodos_Pagamento {
+        var result: Metodos_Pagamento = this.getById(Id);
+        if (result && this.getByName(metodos_pagamento.name) == null && result.name_titular == metodos_pagamento.name_titular && result.flag == metodos_pagamento.flag && result.cvv == metodos_pagamento.cvv && result.number == metodos_pagamento.number) {
+          result.update(metodos_pagamento);
+          return result;
+        }
+        else{
+          return null;
+        }
+      },
+
+      getByName:function(mName: string) : Metodos_Pagamento {
+        return this.metodosPagamento.find((metodo: { name: string; }) => metodo.name == mName);
+      },
+      getById: function(Id: number) : Metodos_Pagamento {
+        return this.metodosPagamento.find((metodo: { ident: number; }) => metodo.ident == Id);
+      },
+      remove:function(metodos_pagamento: Metodos_Pagamento): Metodos_Pagamento {
+        var r: number = this.metodosPagamento.indexOf(metodos_pagamento);
+        if (this.metodosPagamento.length > 0 && r != -1) {
+          var result: Metodos_Pagamento = this.metodosPagamento[r];
+          this.metodosPagamento.splice(r,1);
+          return result;
+        }
+        else{
+          return null;
+        }
+      },
+      get:function(): Metodos_Pagamento[] {
+        return this.metodosPagamento;
+      }
+      
+    }
 },{
   name: "Mateus",
   id: "111",

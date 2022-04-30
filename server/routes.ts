@@ -49,12 +49,19 @@ routes.get('/user/:id/metodos', function(req, res){
   });
   
   routes.post('/user/:id/metodos', function(req, res){
+    console.log("entrou no poste");
     const userId = req.params.id;
     const index = usersService.getUserIndex(userId);
+    console.log("antes do cast");
     const metodo: Metodos_Pagamento = <Metodos_Pagamento> req.body;
+    console.log(metodo);
     try {
+      console.log(usersService.users[index])
       const result = usersService.users[index].metodos_de_pagamento.add(metodo);
+      console.log("resulta aqui:")
+      console.log(result);
       if (result) {
+        console.log("de bom 201")
         res.status(201).send(result);
       } else {
         res.status(403).send({ message: "Method list is full, method name is already exist or method type is invalid."});
@@ -64,6 +71,10 @@ routes.get('/user/:id/metodos', function(req, res){
       res.status(400).send({ message })
     }
   });
+
+  routes.post('/users/fodase', function(req, res){
+    console.log("/fodase")
+  })
   
   routes.put('/user/:id/metodos/:ident', function(req, res){
     const userId = req.params.id;
@@ -83,6 +94,8 @@ routes.get('/user/:id/metodos', function(req, res){
     const metodo: Metodos_Pagamento = <Metodos_Pagamento> req.body;
     try {
       const result = usersService.users[index].metodos_de_pagamento.remove(metodo);
+
+    
       if (result) {
         res.status(201).send(result);
       } else {

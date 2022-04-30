@@ -13,7 +13,7 @@ export class ClientIdComponent implements OnInit {
   clientId:string; 
 
   goToComponentB(): void {
-    this.service.getuser().then(user => this.router.navigate(['/user/pay'], {state: {user:user}}));
+    this.service.getuser(this.clientId).then(user => this.router.navigate(['/user/pay'], {state: {user:user}}));
   }
 
   ngOnInit() {

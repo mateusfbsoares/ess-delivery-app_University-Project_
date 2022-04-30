@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { user } from '../classes/users';
 
 @Component({
   selector: 'app-addpayment',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddpaymentComponent implements OnInit {
 
-  constructor() { }
+
+  user:user;
+  constructor(private router:Router, private aRouter:ActivatedRoute) { }
+
+  goToComponentB(): void {
+    this.router.navigate(['/addpayment/insertcredit'], {state: {user:this.user}});
+  }
 
   ngOnInit() {
+    this.user = window.history.state.user;
+    console.log("no addpay " + this.user.name);
   }
 
 }

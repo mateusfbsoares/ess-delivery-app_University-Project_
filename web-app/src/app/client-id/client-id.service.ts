@@ -16,8 +16,8 @@ private headers = new Headers({'Content-Type': 'application/json'});
 
   
   //     user/pay
-  getuser(): Promise<user> {
-    return this.http.get(this.taURL + "/users/123")
+  getuser(id:string): Promise<user> {
+    return this.http.get(this.taURL + "/users/" + id)
              .toPromise()
              .then(res => res.json() as user)
              .catch(this.catch);

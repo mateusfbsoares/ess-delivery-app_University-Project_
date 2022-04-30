@@ -1,23 +1,28 @@
 <div mat-button class="logo-container" name="home" routerLink="/home">
-  <img alt="Logo" src="/assets/images/logo.svg"/>
+   <img alt="Logo" src="/assets/images/logo.svg"/>
 </div>
-<h2 class="header-home">Adicionar Cartão de crédito</h2>
+<h2 class="header-home">Adicionar método de pagamento</h2>
 <div class="forms-block">
-  <div class="input-block" >
-     <input placeholder="Número do Cartão" id="cardNumber" [(ngModel)]="car.name">
-  </div>
-  <div class="input-block" id="exp-cvv">
-     <input placeholder="Validade"  id="exp-date" type="datetime" min="2018-03" [(ngModel)]="car.brand" >
-     <input placeholder="CVV" type="number" [(ngModel)]="car.price" >
-  </div>
-  <div class="input-block">
-     <input placeholder="Nome do titular" type="number" [(ngModel)]="car.price" >
-  </div>
-  <div class="checkbox"><input type="checkbox"><label>Tornar método de pagamento padrão</label></div>
-  <div class="buttons-container">
-     <a class="confirm-link" (click)="createCar(car)">
-        <img alt="Ícone de cartão de crédito" src="/assets/icons/credit-card.svg"/>
-        Adicionar
-     </a>
-  </div>
+   <div class="input-block" >
+      <input placeholder="Número do Cartão" [(ngModel)]="metodo.number">
+   </div>
+   <div class="input-block" >
+      <input placeholder="Nome do titular" [(ngModel)]="metodo.name_titular">
+   </div>
+   <div class="input-block">
+      <input placeholder="CVV" type="number" [(ngModel)]="metodo.CVV" >
+   </div>
+   <div class="input-block">
+      <input placeholder="Bandeira" [(ngModel)]="metodo.flag" >
+   </div>
+   <div class="input-block">
+      <input placeholder="Apelido do Cartão" [(ngModel)]="metodo.name" >
+   </div>
+   <div class="checkbox"><input type="checkbox"><label>Tornar método de pagamento padrão</label></div>
+   <div class="buttons-container">
+      <a class="confirm-link" (click)="sendPost()">
+         <img alt="Ícone de cartão de crédito" src="/assets/icons/credit-card.svg"/>
+         Adicionar
+      </a>
+   </div>
 </div>

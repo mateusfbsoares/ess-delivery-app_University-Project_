@@ -19,14 +19,14 @@ export class PaymentComponent implements OnInit {
   }
 
   goToComponentB(): void {
-    this.service.getuser().then(user => this.router.navigate(['/addpayment'], {state: {user:user}}));
-    console.log(this.user)
+    this.router.navigate(['/addpayment'], {state: {user:this.user}});
+    console.log(this.user.name + " payment to addpay")
   }
   
   ngOnInit() {
 
     this.user = window.history.state['user']
-    console.log("peguei esta merda " + window.history.state.user)
+    console.log(this.user.metodos_de_pagamento.metodosPagamento)    
 
   }
 
