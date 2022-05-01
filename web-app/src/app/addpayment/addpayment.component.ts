@@ -14,11 +14,11 @@ export class AddpaymentComponent implements OnInit {
   constructor(private router:Router, private aRouter:ActivatedRoute) { }
 
   goToComponentB(): void {
-    this.router.navigate(['/addpayment/insertcredit'], {state: {user:this.user}});
+    this.router.navigate(['/addpayment/insertcredit']);
   }
 
   ngOnInit() {
-    this.user = window.history.state.user;
+    this.user = JSON.parse(localStorage.getItem("user"));;
     console.log("no addpay " + this.user.name);
   }
 

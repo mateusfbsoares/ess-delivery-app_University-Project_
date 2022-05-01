@@ -13,7 +13,11 @@ export class ClientIdComponent implements OnInit {
   clientId:string; 
 
   goToComponentB(): void {
-    this.service.getuser(this.clientId).then(user => this.router.navigate(['/user/pay'], {state: {user:user}}));
+    localStorage.clear();
+    this.service.getuser(this.clientId).then(user => {
+      localStorage.setItem("user" , JSON.stringify(user));
+      this.router.navigate(['/user/pay']);
+    });
   }
 
   ngOnInit() {

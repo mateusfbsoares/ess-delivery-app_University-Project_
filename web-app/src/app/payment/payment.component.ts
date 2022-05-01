@@ -26,14 +26,15 @@ export class PaymentComponent implements OnInit {
   }
 
   goToComponentB(): void {
-    this.router.navigate(['/addpayment'], {state: {user:this.user}});
+    this.router.navigate(['/addpayment']);
     console.log(this.user.name + " payment to addpay")
   }
   
   ngOnInit() {
 
 
-    this.user = window.history.state['user'];
+    this.user = JSON.parse(localStorage.getItem("user"));
+    console.log("localstorage deu bom " + this.user.name);
     this.mainPay = this.user.metodos_de_pagamento.metodosPagamento[0].name;
     this.sizePayments = this.user.metodos_de_pagamento.metodosPagamento.length;
     console.log(this.user.metodos_de_pagamento.metodosPagamento)    
