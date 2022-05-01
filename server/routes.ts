@@ -72,9 +72,6 @@ routes.get('/user/:id/metodos', function(req, res){
     }
   });
 
-  routes.post('/users/fodase', function(req, res){
-    console.log("/fodase")
-  })
   
   routes.put('/user/:id/metodos/:ident', function(req, res){
     const userId = req.params.id;

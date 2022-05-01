@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http,Headers  } from '@angular/http';
 import { Metodos_Pagamento } from '../classes/metodos_pagamento';
+import {user} from '../classes/users'
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,12 @@ export class InsertcreditService {
         if (res.status === 201) {return metodo;} else {return null;}
       })
       .catch(this.catch);
+  }
+  getuser(id:string): Promise<user> {
+    return this.http.get(this.taURL + "/users/" + id)
+             .toPromise()
+             .then(res => res.json() as user)
+             .catch(this.catch);
   }
 
   private catch(erro: any): Promise<any>{

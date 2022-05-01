@@ -16,6 +16,11 @@ import { AddpaymentComponent } from './addpayment/addpayment.component';
 import { InsertcreditComponent } from './insertcredit/insertcredit.component';
 import { InsertdebitComponent } from './insertdebit/insertdebit.component';
 import { ClientIdService } from './client-id/client-id.service';
+import { PaymentService } from './payment/payment.service';
+import { InsertcreditService } from './insertcredit/insertcredit.service';
+import { PixComponent } from './pix/pix.component';
+import { PicpayComponent } from './picpay/picpay.component';
+import { PaypalComponent } from './paypal/paypal.component';
 
 
 @NgModule({
@@ -29,6 +34,9 @@ import { ClientIdService } from './client-id/client-id.service';
     AddpaymentComponent,
     InsertcreditComponent,
     InsertdebitComponent,
+    PixComponent,
+    PicpayComponent,
+    PaypalComponent,
     
   ],
   imports: [
@@ -67,7 +75,7 @@ import { ClientIdService } from './client-id/client-id.service';
       }
     ])
   ],
-  providers: [CarService,ClientIdService],
+  providers: [CarService,ClientIdService,PaymentService,InsertcreditService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

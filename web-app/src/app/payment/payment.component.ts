@@ -18,6 +18,9 @@ export class PaymentComponent implements OnInit {
 
   mainPay:string;
 
+  newMainPay:string;
+
+
   constructor(private router:Router, private aRouter:ActivatedRoute,private service: PaymentService) {
    
   }

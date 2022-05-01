@@ -37,14 +37,14 @@ export class InsertdebitComponent implements OnInit {
   }
 
   goToComponentB(): void {
-    this.router.navigate(['/user.pay'], {state: {user:this.user}});
+    this.service.getuser(this.user.id).then(user => this.router.navigate(['/user/pay'], {state: {user:user}}))
     console.log(this.user.name + " payment to addpay")
   }
 
   ngOnInit() {
     this.user = window.history.state.user;
     this.metodo.type = "Cartao de Credito" ;
-   
+    
   }
 
 }
