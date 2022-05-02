@@ -94,7 +94,7 @@ import { LogoutComponent } from './views/logout/logout.component';
         component: ProfileComponent
       },
       {
-        path: 'user/:id/current-order',
+        path: 'user/:id/order',
         component: CurrentOrderComponent
       },
       {

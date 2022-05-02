@@ -31,7 +31,7 @@ export class ProfileComponent implements OnInit {
   }
 
   toCurrentOrder(){
-    this.route.navigate(["user", this.user.id, "current-order"]);
+    this.route.navigate(["user", this.user.id, "order"]);
   }
 
 

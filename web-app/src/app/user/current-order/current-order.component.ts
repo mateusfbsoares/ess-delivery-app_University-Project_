@@ -29,7 +29,8 @@ export class CurrentOrderComponent implements OnInit {
   }
   
   insertCoupon() {
-    this.service.insertCoupon(this.cupomName, this.curOrder, this.data.id)
+
+    this.service.insertCoupon(this.cupomName, this.curOrder)
       .then(res => {
         this.curOrder = res;
         if(this.curOrder.coupon) {
@@ -44,7 +45,16 @@ export class CurrentOrderComponent implements OnInit {
     this.route.navigate(["user", this.data.id, "profile"]);
   }
 
-  updateAmount(){}
+  formatAmount(){
+    return this.curOrder.amount.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  }
+
+  updateAmount(){
+    this.curOrder.amount = 0;
+    this.curOrder.products.forEach(product => {
+      this.curOrder.amount += (product.price * product.quantity);
+    })
+  }
   removeCoupon(){}
   confirmOrder(){}
 
@@ -59,8 +69,8 @@ export class CurrentOrderComponent implements OnInit {
       this.rest = res;
       // alert("rest =>" + this.rest);
       this.curOrder.products = this.rest.products;
+      this.setZeroQuantity();
     });
-    this.setZeroQuantity();
     
   }
 

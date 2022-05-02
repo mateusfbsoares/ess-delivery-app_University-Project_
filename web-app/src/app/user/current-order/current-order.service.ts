@@ -1,5 +1,6 @@
 import { Injectable }    from '@angular/core';
 import { Http, Headers } from '@angular/http';
+import { Alert } from 'selenium-webdriver';
 import { Restaurant } from 'src/app/admin/restaurant';
 import { Order } from '../orders/order';
 
@@ -11,8 +12,7 @@ export class CurrentOrderService {
   private headers = new Headers({'Content-Type': 'application/json'});
 
   constructor(private http: Http) {
-    this.currentURL = window.location.pathname;
-
+    this.currentURL = window.location.pathname; 
   }
   
   getRestaurant(restName: string): Promise<Restaurant> {
@@ -25,12 +25,13 @@ export class CurrentOrderService {
              .catch(this.catch);
   }
 
-  insertCoupon(couponName: string, order: Order, userid: string) {
-    return this.http.post(this.currentURL + 'user/' + userid + '/order', JSON.stringify({'couponName': couponName, 'order': order}),  {headers: this.headers})
+  insertCoupon(couponName: string, order: Order) {
+    alert(JSON.stringify({'couponName': couponName, 'order': order}))
+    return this.http.post(this.currentURL, JSON.stringify({'couponName': couponName, 'order': order}),  {headers: this.headers})
     .toPromise()
     .then(res => {
       if(res.status == 201) {
-        return order;
+        return res.json() as Order;
       } else {
         return null;
       }
