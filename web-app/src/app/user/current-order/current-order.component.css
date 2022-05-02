@@ -108,6 +108,15 @@
     cursor: pointer;
 }
 
+.block-3.withBackground {
+    background-color: var(--color-secondary);
+    width: 22rem;
+    height: 5rem;
+    border-radius: 1rem;
+    margin: 1rem;
+    justify-content: center;
+}
+
 .input-block.coupon input {
     width: 20rem;
     height: 4rem;

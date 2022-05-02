@@ -26,8 +26,8 @@ export class CurrentOrderService {
   }
 
   insertCoupon(couponName: string, order: Order) {
-    alert(JSON.stringify({'couponName': couponName, 'order': order}))
-    return this.http.post(this.currentURL, JSON.stringify({'couponName': couponName, 'order': order}),  {headers: this.headers})
+    // alert(JSON.stringify({'couponName': couponName, 'order': order}))
+    return this.http.post(this.taURL + this.currentURL, JSON.stringify({'couponName': couponName, 'order': order}),  {headers: this.headers})
     .toPromise()
     .then(res => {
       if(res.status == 201) {

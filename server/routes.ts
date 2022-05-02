@@ -268,11 +268,11 @@ routes.post('/user/:id/order', function(req, res){
   var couponName: string = <string> req.body.couponName; // isso daqui pode mudar, order.coupon pode virar string
   var order: Order = <Order> req.body.order;
   var userId = req.params.id;
-  
   var err;
   
   // se o cupom é de restaurante
   var coupon: Coupon = restaurantsService[order.restaurant].getByName(couponName);
+
   if(coupon){
     applyCoupon();
   }else{
@@ -288,9 +288,11 @@ routes.post('/user/:id/order', function(req, res){
   function applyCoupon() {
     [order, err] = usersService.applyCouponInOrder(userId, order, coupon);
 
-    if (order.coupon == undefined) {
+    if (order.coupon.id == '') {
+      console.log(err);
       res.status(403).send(err);
     } else {
+      console.log(order);
       res.status(201).send(order);
     }
   }
