@@ -16,7 +16,6 @@ export class PaypalComponent implements OnInit {
    
   
   }
-
   countcheck:number = 0;
   checou:string = "deschecado";
   user:user;
@@ -64,7 +63,7 @@ export class PaypalComponent implements OnInit {
 
     //colocando os 4 últimos digitos no nome
 
-    this.metodo.name =  "PicPay";
+    this.metodo.name =  "PayPal";
 
     // fazer confirmaçao dps
     var confirmId = prompt("confirme seu Id");
@@ -116,6 +115,4 @@ export class PaypalComponent implements OnInit {
     this.metodo.ident = 0;
    
   }
-
-
 }

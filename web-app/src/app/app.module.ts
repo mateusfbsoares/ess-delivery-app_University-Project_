@@ -105,7 +105,8 @@ import { EditpayService } from './editpay/editpay.service';
     ClientIdService,
     PaymentService,
     InsertcreditService,
-    InsertdebitService
+    InsertdebitService,
+    EditpayService
   ],
   bootstrap: [AppComponent]
 })

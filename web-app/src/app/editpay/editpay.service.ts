@@ -19,7 +19,7 @@ export class EditpayService {
   //     user/pay
   edit(id:string,metodo: Metodos_Pagamento): Promise<Metodos_Pagamento> {
     
-    return this.http.put(this.taURL + "/user/" + id +"/metodos",JSON.stringify(metodo), {headers: this.headers})
+    return this.http.put(this.taURL + "/user/" + id +"/metodos/" + metodo.ident,JSON.stringify(metodo), {headers: this.headers})
       .toPromise()
       .then(res => {console.log("staus: " + res.status)
         if (res.status === 201) {return metodo;} else {return null;}

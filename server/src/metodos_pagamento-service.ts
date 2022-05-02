@@ -18,8 +18,10 @@ export class Metodos_PagamentoService {
   }
 
   update( Id: number, metodos_pagamento: Metodos_Pagamento): Metodos_Pagamento {
+    console.log("antes if2");
     var result: Metodos_Pagamento = this.getById(Id);
-    if (result && this.getByName(metodos_pagamento.name) == null && result.name_titular == metodos_pagamento.name_titular && result.flag == metodos_pagamento.flag && result.cvv == metodos_pagamento.cvv && result.number == metodos_pagamento.number) {
+    
+    if (result) {
       result.update(metodos_pagamento);
       return result;
     }

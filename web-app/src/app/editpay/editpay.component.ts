@@ -50,7 +50,9 @@ export class EditpayComponent implements OnInit {
  
     //encontrar metodo que está no select
     this.findmain();
-
+    console.log("antes put");
+    console.log(this.mainPay);
+    
     this.service.edit(this.user.id,this.mainPay).then(res => {
    
       console.log(res)

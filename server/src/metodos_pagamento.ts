@@ -23,6 +23,8 @@ export class Metodos_Pagamento {
   }
 
   update(metodo_pagamento: Metodos_Pagamento): void {
+    console.log("update de dentroo")
+    console.log(metodo_pagamento);
       this.name = metodo_pagamento.name;
       if (this.type == "PicPay"  || this.type == "PayPal") {
         this.email = metodo_pagamento.email;

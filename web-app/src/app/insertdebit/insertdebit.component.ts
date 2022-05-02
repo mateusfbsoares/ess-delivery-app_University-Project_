@@ -11,7 +11,8 @@ import { InsertdebitService } from './insertdebit.service';
 })
 export class InsertdebitComponent implements OnInit {
 
-  constructor(private router: Router,private aRoute: ActivatedRoute,private service: InsertdebitService) {
+
+  constructor(private router: Router,private aRoute: ActivatedRoute,private service:InsertdebitService) {
    
   
   }
@@ -71,20 +72,18 @@ export class InsertdebitComponent implements OnInit {
 
     //colocando os 4 últimos digitos no nome
 
-    this.metodo.name = this.metodo.name + "(**** **** **** " +Number(this.metodo.number)%10000 + ")";
-
     // fazer confirmaçao dps
     var confirmId = prompt("confirme seu Id");
-    var confirme = prompt("para confirmar escreva: CONFIRMAR ");
     
-    while(confirmId != this.user.id){
-      alert("id inválido");
-      confirmId = prompt("confirme seu Id");
+    
+    if(confirmId != this.user.id){
+      return;
     }
-    while(confirme != "CONFIRMAR"){
-      alert("digite corretamente a palavra CONFIRMAR");
-      confirme = prompt("para confirmar escreva: CONFIRMAR ");
+    var confirme = prompt("para confirmar escreva: CONFIRMAR ");
+    if(confirme != "CONFIRMAR"){
+      return;
     }
+    this.metodo.name = this.metodo.name + "(**** **** **** " +Number(this.metodo.number)%10000 + ")";
 
     this.service.create(this.user.id,this.metodo).then(res => {
 
@@ -116,9 +115,13 @@ export class InsertdebitComponent implements OnInit {
     console.log(this.user.name + " payment to addpay")
   }
 
+  backPage(){
+    this.router.navigate(['/addpayment']);
+  }
+
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem("user"));
-    this.metodo.type = "Cartao de Credito" ;
+    this.metodo.type = "Cartao de Debito" ;
    
   }
 

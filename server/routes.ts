@@ -76,11 +76,18 @@ routes.get('/user/:id/metodos', function(req, res){
 
   
   routes.put('/user/:id/metodos/:ident', function(req, res){
+    console.log("editar método \n antes:");
     const userId = req.params.id;
     const index = usersService.getUserIndex(userId);
     const metodo: Metodos_Pagamento = <Metodos_Pagamento> req.body;
+    console.log("antes")
+    console.log(metodo.ident)
+    console.log(usersService.users[index].metodos_de_pagamento)
     const result = usersService.users[index].metodos_de_pagamento.update(metodo.ident, metodo);
+    console.log(result);
     if (result) {
+      console.log("depois:")
+      console.log(result);
       res.send(metodo);
     } else {
       res.status(404).send({ message: `Inconsistents datas.`});
