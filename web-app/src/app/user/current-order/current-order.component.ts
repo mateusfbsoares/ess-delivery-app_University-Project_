@@ -52,8 +52,13 @@ export class CurrentOrderComponent implements OnInit {
     this.free = f.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   }
 
+  // só depois que eu percebi que não precisava fazer requisição no backend, era só atualizar aqui
+  // até porque nada muda no back
   insertCoupon() {
-    // this.curOrder.coupon.name = this.couponName;
+    if(this.couponName == undefined || this.couponName == '') {
+      return alert("Campo de cupom não preenchido");
+    }
+    
     this.service.insertCoupon(this.couponName, this.curOrder)
       .then(res => {
         this.curOrder = res;
@@ -64,7 +69,7 @@ export class CurrentOrderComponent implements OnInit {
         } else {
           alert("Cupom não pode ser aplicado!");
         }
-      })
+      }).catch(err => alert("Dados inválidos"));
   }
 
   back() {
@@ -83,9 +88,16 @@ export class CurrentOrderComponent implements OnInit {
     this.updateFree();
     this.curOrder.amount *= (1-(this.discount/100));
   }
-  removeCoupon(){
 
+  // não precisa fazer requisição no backend
+  removeCoupon() {
+    this.curOrder.coupon = order.coupon;
+    this.discount = 0;
+    this.updateAmount();
+    alert("Cupom removido com sucesso");
   }
+
+
   confirmOrder(){}
 
   // e as de metodos de pagamento

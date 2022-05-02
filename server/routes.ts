@@ -300,29 +300,29 @@ routes.post('/user/:id/order', function(req, res){
 });
 
 // Deletar cupom do pedido do usuário
-routes.delete('/user/:id/order', function (req, res){
-  const userId = req.params.id
-  var couponName: string = <string> req.body.couponName;
-  var order: Order = <Order> req.body.order;
+// routes.delete('/user/:id/order', function (req, res){
+//   const userId = req.params.id
+//   var couponName: string = <string> req.body.couponName;
+//   var order: Order = <Order> req.body.order;
 
-  var coupon: Coupon = restaurantsService[order.restaurant].getByName(couponName);
+//   var coupon: Coupon = restaurantsService[order.restaurant].getByName(couponName);
 
-  if (coupon == undefined){
-    coupon = adminService.getByName(couponName);
-  }
+//   if (coupon == undefined){
+//     coupon = adminService.getByName(couponName);
+//   }
   
-  order.coupon = coupon;
-  order = usersService.removeCoupon(order);
+//   order.coupon = coupon;
+//   order = usersService.removeCoupon(order);
 
-  const message = `Coupon ${couponName} has been removed.`;
-  const err = "Não deu ein :(";
+//   const message = `Coupon ${couponName} has been removed.`;
+//   const err = "Não deu ein :(";
   
-  if (order) {
-    res.status(201).send({order, message});
-  } else {
-    res.status(404).send({ err });
-  }
-});
+//   if (order) {
+//     res.status(201).send({order, message});
+//   } else {
+//     res.status(404).send({ err });
+//   }
+// });
 
 // ADICIONAR UM PEDIDO AO ARRAY DE PEDIDOS DO USUÁRIO
 routes.post('/user/:id/orders', function(req, res){
