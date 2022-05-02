@@ -13,7 +13,7 @@ import { EmailService } from './email.service';
 export class EmailComponent implements OnInit {
 
   constructor(private emailService: EmailService, private route: ActivatedRoute) { }
-  
+
   user: User;
   order: Order;
   localStorage = new LocalStorageService();
@@ -23,7 +23,7 @@ export class EmailComponent implements OnInit {
     console.log(info);
   }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
     this.user = this.localStorage.get('user');
     this.order = this.localStorage.get('order')
     this.sendEmail()

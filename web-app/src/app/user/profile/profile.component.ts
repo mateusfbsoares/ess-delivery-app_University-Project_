@@ -39,7 +39,7 @@ export class ProfileComponent implements OnInit {
     this.route.navigate(["user", this.user.id, "current-order"]);
   }
 
-  //TESTE - simulação de pedido finalizado
+  //DEBUG - simulação de pedido finalizado
   toSimulateFinishedOrder(orderId) {
     this.route.navigate(["user", this.user.id, "finished-order", orderId]);
   }

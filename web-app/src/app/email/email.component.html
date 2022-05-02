@@ -1,3 +1,30 @@
-<p>
-  email works!
-</p>
+<div>
+
+  <!-- email sent -->
+  <div ngif="email-successfully-sent">
+    <h1>Pedido Finalizado</h1>
+    <p>Te enviamos um e-mail com o comprovante do pedido</p>
+    <button>Voltar para o perfil</button>
+    <a href="https://google.com">Não recebi nenhum e-mail</a>
+  </div>
+
+  <div ngif="user-wants-to-re-send-email">
+    <h3>Observe se o e-mail se encontra na caixa de spam</h3>
+    <button>Re-enviar e-mail com comprovante de pedido</button>
+    <a href="https://google.com">Voltar para o perfil</a>
+  </div>
+
+  <div ngif="email-will-be-re-sent-in-24-hours">
+    <h3>Você receberá um e-mail com o comprovante de pedido dentro de 24h </h3>
+    <button>Voltar para o perfil</button>
+  </div>
+
+
+
+  <!-- email not sent (some error ocurred) -->
+  <div ngif="email-not-sent-successfully">
+    <h3>Você receberá um e-mail com o comprovante de pedido dentro de 24h </h3>
+    <button>Voltar para o perfil</button>
+  </div>
+
+</div>
