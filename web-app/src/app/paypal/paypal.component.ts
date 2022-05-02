@@ -39,21 +39,13 @@ export class PaypalComponent implements OnInit {
     var corrections = "";
 
     console.log(typeof this.metodo.number)
-    if( String(this.metodo.number).length != 16 ){
-      corrections = corrections + "* Digite exatamente 16 digitos no campo: número do cartão\n"
-    }
-    if( String(this.metodo.cvv).length != 3 ){
-      corrections = corrections + "* Digite exatamente 3 digitos\n"
-    }
+    
 
-    if( this.metodo.name_titular == undefined ){
+    if( this.user.name == undefined ){
       corrections = corrections + "* Nome do titular não pode ficar vazio\n"
     }
-    if( this.metodo.flag != "visa" && this.metodo.flag != "master"  ){
-      corrections = corrections + "* Selecione visa ou master\n"
-    }
-    if( this.metodo.name == undefined ){
-      this.metodo.name = "";
+    if( this.metodo.email == undefined ){
+      corrections = corrections + "* E-mail não pode ficar vazio\n"
     }
 
     if(corrections != ""){
@@ -72,7 +64,7 @@ export class PaypalComponent implements OnInit {
 
     //colocando os 4 últimos digitos no nome
 
-    this.metodo.name = this.metodo.name + "(**** **** **** " +Number(this.metodo.number)%10000 + ")";
+    this.metodo.name =  "PicPay";
 
     // fazer confirmaçao dps
     var confirmId = prompt("confirme seu Id");
@@ -119,8 +111,11 @@ export class PaypalComponent implements OnInit {
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem("user"));
-    this.metodo.type = "Cartao de Credito" ;
+    this.metodo.type = "PicPay" ;
+    console.log(this.metodo);
+    this.metodo.ident = 0;
    
   }
+
 
 }

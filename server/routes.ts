@@ -1,10 +1,12 @@
 import { Router } from 'express';
 import { Metodos_Pagamento } from './src/metodos_pagamento';
+import { Metodos_PagamentoService } from './src/metodos_pagamento-service';
 import { UserService } from './src/user-service';
 
 const routes = Router();
 
 var usersService: UserService = new UserService();
+var methodsService : Metodos_PagamentoService = new Metodos_PagamentoService();
 
 //metodos
 routes.get('/user/:id/metodos', function(req, res){
@@ -85,13 +87,19 @@ routes.get('/user/:id/metodos', function(req, res){
     }
   });
   
-  routes.delete('/user/:id/metodos', function(req, res){
-    const userId = req.params.id;
+  routes.delete('/user/:idUser/metodos/:idPay', function(req, res){
+    const userId = req.params.idUser;
+    const methodId = req.params.idPay;
     const index = usersService.getUserIndex(userId);
-    const metodo: Metodos_Pagamento = <Metodos_Pagamento> req.body;
+    console.log(methodId);
+    console.log("printando service")
+    console.log(methodsService);
+    const metodo: Metodos_Pagamento = usersService.users[index].metodos_de_pagamento.getById(methodId);
     try {
+      console.log("printando metodo:")
+      console.log(metodo);
       const result = usersService.users[index].metodos_de_pagamento.remove(metodo);
-
+      console.log(result);
     
       if (result) {
         res.status(201).send(result);

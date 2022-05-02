@@ -13,8 +13,20 @@ export class AddpaymentComponent implements OnInit {
   user:user;
   constructor(private router:Router, private aRouter:ActivatedRoute) { }
 
-  goToComponentB(): void {
+  goToCredit(): void {
     this.router.navigate(['/addpayment/insertcredit']);
+  }
+
+  goToDebit(): void {
+    this.router.navigate(['/addpayment/insertdebit']);
+  }
+
+  goToPicPay(): void {
+    this.router.navigate(['/addpayment/picpay']);
+  }
+
+  goToPayPal(): void {
+    this.router.navigate(['/addpayment/paypal']);
   }
 
   ngOnInit() {

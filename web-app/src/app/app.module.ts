@@ -18,12 +18,16 @@ import { InsertdebitComponent } from './insertdebit/insertdebit.component';
 import { ClientIdService } from './client-id/client-id.service';
 import { PaymentService } from './payment/payment.service';
 import { InsertcreditService } from './insertcredit/insertcredit.service';
-import { PixComponent } from './pix/pix.component';
-import { PicpayComponent } from './picpay/picpay.component';
+import { InsertdebitService } from './insertdebit/insertdebit.service';
 import { PaypalComponent } from './paypal/paypal.component';
-import { RemoveComponent } from './remove/remove.component';
+//import { PixComponent } from './pix/pix.component';
 import { ErasepayComponent } from './erasepay/erasepay.component';
-
+import { PaypalService } from './paypal/paypal.service';
+import { PicpayService } from './picpay/picpay.service';
+//import { PixService } from './pix/pix.service';
+import { ErasepayService } from './erasepay/erasepay.service';
+import { PicpayComponent } from './picpay/picpay.component';
+import { BarComponent } from './views/bar/bar.component';
 
 @NgModule({
   declarations: [
@@ -36,12 +40,10 @@ import { ErasepayComponent } from './erasepay/erasepay.component';
     AddpaymentComponent,
     InsertcreditComponent,
     InsertdebitComponent,
-    PixComponent,
-    PicpayComponent,
     PaypalComponent,
-    RemoveComponent,
+    PicpayComponent,
     ErasepayComponent,
-    
+    BarComponent
   ],
   imports: [
     BrowserModule,
@@ -74,12 +76,30 @@ import { ErasepayComponent } from './erasepay/erasepay.component';
         component: InsertdebitComponent
       },
       {
+        path: 'addpayment/paypal',
+        component: PaypalComponent
+      },
+      {
+        path: 'addpayment/picpay',
+        component: PicpayComponent
+      },
+      {
+        path: 'erasepayment',
+        component:ErasepayComponent
+      },
+      {
         path: 'home',
         component: HomeComponent
       }
     ])
   ],
-  providers: [CarService,ClientIdService,PaymentService,InsertcreditService],
+  providers: [
+    CarService,
+    ClientIdService,
+    PaymentService,
+    InsertcreditService,
+    InsertdebitService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

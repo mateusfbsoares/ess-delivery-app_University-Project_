@@ -37,7 +37,12 @@ export class PaymentComponent implements OnInit {
     }
 
   }
+  goToErase(){
 
+    this.findmain();
+    this.router.navigate(['/erasepayment']);
+
+  }
   goToComponentB(): void {
 
     this.findmain();

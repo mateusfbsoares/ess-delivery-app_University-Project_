@@ -1,6 +1,5 @@
-<div mat-button class="logo-container" name="home" routerLink="/home">
-  <img alt="Logo" src="/assets/images/logo.svg"/>
-</div>
+<app-bar></app-bar>
+<div>
 <h2 class="header-home">Configurações de pagamento</h2>
 <div class="buttons-container">
   <a class="confirm-link" (click)="goToComponentB()">
@@ -17,7 +16,7 @@
 </div>
 
 <div class="buttons-container">
-  <a class="confirm-link" (click)="createCar(car)">
+  <a class="confirm-link" (click)="goToErase()">
     <img alt="Ícone de cartão de crédito" src="/assets/icons/trash.svg"/>
     Remover método de pagamento 
   </a>
@@ -34,7 +33,7 @@
        </select>
     </div>   
   </div>
-
+</div>
 
   
 

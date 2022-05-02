@@ -26,13 +26,16 @@ export class UserService {
     }
 
       }],
-      identCount: 0,
+      identCount: 1,
       add : function (metodos_pagamento: Metodos_Pagamento): Metodos_Pagamento {
+        console.log("entrooou")
         if (this.metodosPagamento.length == 5 || this.getByName(metodos_pagamento.name) != null || (metodos_pagamento.type != "Cartao de Credito" && metodos_pagamento.type != "Cartao de Debito" && metodos_pagamento.type != "Pix" && metodos_pagamento.type != "PicPay" && metodos_pagamento.type != "PayPal")) {
           return null;
         }
-        const newMetodo = new Metodos_Pagamento(<Metodos_Pagamento> { ident: this.identCount, type: metodos_pagamento.type, name: metodos_pagamento.name, ...metodos_pagamento });
+        const newMetodo = new Metodos_Pagamento(<Metodos_Pagamento> { ident: this.identCount, ...metodos_pagamento });
+        newMetodo.ident = this.identCount;
         this.identCount = this.identCount+1;
+        console.log(newMetodo)
         this.metodosPagamento.push(newMetodo);
         return newMetodo;
       },
@@ -51,6 +54,7 @@ export class UserService {
         return this.metodosPagamento.find((metodo: { name: string; }) => metodo.name == mName);
       },
       getById: function(Id: number) : Metodos_Pagamento {
+        
         return this.metodosPagamento.find((metodo: { ident: number; }) => metodo.ident == Id);
       },
       remove:function(metodos_pagamento: Metodos_Pagamento): Metodos_Pagamento {

@@ -71,20 +71,18 @@ export class InsertcreditComponent implements OnInit {
 
     //colocando os 4 últimos digitos no nome
 
-    this.metodo.name = this.metodo.name + "(**** **** **** " +Number(this.metodo.number)%10000 + ")";
-
     // fazer confirmaçao dps
     var confirmId = prompt("confirme seu Id");
-    var confirme = prompt("para confirmar escreva: CONFIRMAR ");
     
-    while(confirmId != this.user.id){
-      alert("id inválido");
-      confirmId = prompt("confirme seu Id");
+    
+    if(confirmId != this.user.id){
+      return;
     }
-    while(confirme != "CONFIRMAR"){
-      alert("digite corretamente a palavra CONFIRMAR");
-      confirme = prompt("para confirmar escreva: CONFIRMAR ");
+    var confirme = prompt("para confirmar escreva: CONFIRMAR ");
+    if(confirme != "CONFIRMAR"){
+      return;
     }
+    this.metodo.name = this.metodo.name + "(**** **** **** " +Number(this.metodo.number)%10000 + ")";
 
     this.service.create(this.user.id,this.metodo).then(res => {
 
