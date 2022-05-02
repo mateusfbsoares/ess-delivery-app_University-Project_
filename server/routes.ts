@@ -62,14 +62,14 @@ routes.get('/admin/:id', function(req, res){
 
 routes.get('/promotion/admin', (req, res) => {
     const promotions = adminService.get();
-    res.send(JSON.stringify(promotions));
+    res.status(201).send(JSON.stringify(promotions));
 });
 
 routes.get('/promotion/admin/:id', function(req, res){
   const id = req.params.id;
   const coupon = adminService.getByName(id);
   if (coupon) {
-    res.send(coupon);
+    res.status(201).send(coupon);
   } else {
     res.status(404).send({ message: ` Coupon ${id} could not be found`});
   }
@@ -101,9 +101,9 @@ routes.put('/promotion/admin/:name', function (req, res) {
   const err = `Coupon ${name} could not be found.`;
 
   if (result) {
-    res.send(result);
     adminService.updateFile("admin-coupons.json");
     console.log(message);
+    res.status(201).send(result);
   } else {
     res.status(404).send({ message: err});
   }
@@ -119,9 +119,9 @@ routes.delete('/promotion/admin/:name', function (req, res){
   const err = `Coupon ${name} could not be found.`;
 
   if (result) {
-    res.send({ message: message});
     adminService.updateFile("admin-coupons.json");
     console.log(message);
+    res.status(201).send({ message: message});
   } else {
     res.status(404).send({ message: err});
   }
@@ -139,7 +139,7 @@ routes.get('/restaurant/:restName', (req, res) => {
   const err = `Restaurant ${restName} not found`;
   if(rest) {
     console.log(msg)
-    res.status(200).send(rest);
+    res.status(201).send(rest);
   } else {
     console.log(err);
     res.status(404).send({message: err});
@@ -154,14 +154,14 @@ routes.get('/promotion/restaurants', (req, res) => {
 routes.get('/promotion/restaurants/:rest', (req, res) => {
   const restName = req.params.rest;
   const index = restaurants.findIndex((result) => result.name == restName)
-  res.send(JSON.stringify(restaurants[index].coupons));
+  res.status(201).send(JSON.stringify(restaurants[index].coupons));
 });
 
 routes.get('/promotion/restaurants/:rest/:id', function(req, res){
   const { rest, id } = req.params;
   const coupon = restaurantsService[rest].getByName(id);
   if (coupon) {
-    res.send(coupon);
+    res.status(201).send(coupon);
   } else {
     res.status(404).send({ message: ` Coupon ${id} could not be found`});
   }
@@ -178,9 +178,9 @@ routes.post('/promotion/restaurants/:rest', function(req, res){
     restaurants[index].coupons = restaurantsService[restName].coupons;
 
     if (result) {
-      res.status(201).send(result);
       updateRestaurantsFile();
       console.log(result);
+      res.status(201).send(result);
     } else {
       res.status(403).send({ message: "Cupom não pode ser adicionado"});
     }
@@ -203,7 +203,7 @@ routes.put('/promotion/restaurants/:rest/:id', function (req, res) {
   const message = `Coupon ${id} has been updated.`;
   
   if (result) {
-    res.send(restaurants[index].coupons);
+    res.status(201).send(restaurants[index].coupons);
     updateRestaurantsFile();
     console.log(message);
   } else {
@@ -227,9 +227,9 @@ routes.delete('/promotion/restaurants/:rest/:id', function (req, res){
   const message = `Coupon ${id} has been deleted.`;
   
   if (result) {
-    res.send(restaurants[index].coupons);
     updateRestaurantsFile();
     console.log(message);
+    res.status(201).send(restaurants[index].coupons);
   } else {
     res.status(404).send({ message: err});
   }
@@ -247,10 +247,10 @@ routes.get('/users/:id', (req, res) => {
   const err = `user not found`;
   if(user) {
     console.log(msg);
-    res.status(200).send(user);
+    res.status(201).send(user);
   } else {
     console.log(err);
-    res.send(404).send({message: err});
+    res.status(404).send({message: err});
   }
 });
 
@@ -260,7 +260,7 @@ routes.get('/user/:id/orders', function(req, res){
   const userId = req.params.id;
   const index = usersService.getUserIndex(userId);
   console.log(usersService.users[index]);
-  res.send(JSON.stringify(usersService.users[index].orders));
+  res.status(201).send(JSON.stringify(usersService.users[index].orders));
 });
 
 // Adiciona cupom ao pedido
@@ -351,20 +351,4 @@ routes.post('/user/:id/orders', function(req, res){
   }
 });
 
-
-
-
 export default routes;
-
-// Login
-// - [ ]  Checagem de ID pra ver se é realmente um cliente ou adm ou restaurante
-
-// User
-// - [x]  Pedido não alcançou o valor mínimo do cupom
-// - [x]  Cupom não pode ter um desconto maior que o valor do produto
-// - [x]  Não pode ter mais de um cupom em um pedido
-// - [x]  Verificar se o cupom está válido na hora da compra -> checar o status
-// - [x]  Perguntar se realmente é necessário checagem de data ou só o status do cupom já basta => não precisa checar data
-// - [x]  Cupom de primeira compra do app existe vitalício e só pode ser usado uma vez por cliente => só criar um exemplo
-// - [x]  Todo cupom só pode ser utilizado 1 vez por cliente
-// Checar se o cupom a ser inserido tem todos os campos preenchidos => exceto id
