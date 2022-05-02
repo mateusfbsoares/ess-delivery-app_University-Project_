@@ -41,7 +41,13 @@ export class ProfileComponent implements OnInit {
 
   //DEBUG - simulação de pedido finalizado
   toSimulateFinishedOrder(orderId) {
-    this.route.navigate(["user", this.user.id, "finished-order", orderId]);
+    // set localstorage user.id and order.id so the email page can read them
+    this.localStorage.set("user_id", this.user.id)
+    this.localStorage.set("order_id", orderId)
+
+    // navigate to email page 
+    // this.route.navigate(["user", this.user.id, "finished-order", orderId]);
+    this.route.navigate(["finished-order"]);
   }
 
 }

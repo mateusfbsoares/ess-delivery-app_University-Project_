@@ -14,18 +14,43 @@ export class EmailComponent implements OnInit {
 
   constructor(private emailService: EmailService, private route: ActivatedRoute) { }
 
-  user: User;
-  order: Order;
+  infoGetter: string;
+
+  user: User = {
+    name: null,    //string
+    id: null,     //string;
+    email: null,    //string;
+    orders: null   //Order[];
+  };
+
+  order: Order = {
+    id: null,          //string;
+    products: null,    //Product[];
+    amount: null,      //number;
+    coupon: null,      //Coupon;
+    restaurant: null,  //string;
+  }
+
   localStorage = new LocalStorageService();
 
   async sendEmail() {
+    // get user id and order id from localstorage
+    this.user.id = this.localStorage.get('user_id');
+    this.order.id = this.localStorage.get('order_id')
+
     const info = await this.emailService.sendEmail(this.user, this.order);
-    console.log(info);
+    this.infoGetter = info
+    console.log("response from emailService: " + info);
   }
 
   ngOnInit(): void {
-    this.user = this.localStorage.get('user');
-    this.order = this.localStorage.get('order')
+
+    // DEBUG
+    // console.log("######################")
+    // console.log("user id: " + this.user.id)
+    // console.log("order id: " + this.order.id)
+    // console.log("#####################")
+
     this.sendEmail()
   }
 }

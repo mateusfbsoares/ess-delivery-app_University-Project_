@@ -104,7 +104,7 @@ import { EmailService } from './email/email.service';
       },
 
       {
-        path: 'user/:id/finished-order/:id',
+        path: 'finished-order',
         component: EmailComponent
       }
 

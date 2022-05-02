@@ -25,6 +25,11 @@ export class EmailService {
     //   // alert('problem sending');
     //   alert(' (DEBUG) message from email.service.ts: Email will be sent whithin 24 hours');
 
+    if (info)
+      console.log("email.service.ts: email successfuly sent")
+    else
+      console.log("email.service.ts: email NOT sent. There was a problem")
+
     return info
   }
 
