@@ -25,6 +25,9 @@ import { LogoComponent } from './views/logo/logo.component';
 import { EditComponent } from './promotion/edit/edit.component';
 import { EditService } from './promotion/edit/edit.service';
 import { LocalStorageService } from './local-storage.service';
+import { CurrentOrderComponent } from './user/current-order/current-order.component';
+import { OrdersService } from './user/orders/orders.service';
+import { CurrentOrderService } from './user/current-order/current-order.service';
 
 @NgModule({
   declarations: [
@@ -40,6 +43,7 @@ import { LocalStorageService } from './local-storage.service';
     OrdersComponent,
     LogoComponent,
     EditComponent,
+    CurrentOrderComponent,
   ],
   imports: [
     BrowserModule,
@@ -89,7 +93,7 @@ import { LocalStorageService } from './local-storage.service';
       },
       {
         path: 'user/:id/current-order',
-        component: ProfileComponent
+        component: CurrentOrderComponent
       },
       {
         path: 'user/:id/orders',
@@ -102,7 +106,7 @@ import { LocalStorageService } from './local-storage.service';
     ]),
     BrowserAnimationsModule
   ],
-  providers: [PromotionService, AdminService, LoginService, EditService, LocalStorageService],
+  providers: [PromotionService, AdminService, LoginService, EditService, LocalStorageService, CurrentOrderService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -9,6 +9,9 @@ GET http://localhost:3000/promotion/restaurants/Mequi
 //TODOS OS CUPONS DE TODOS OS RESTAURANTES
 GET http://localhost:3000/promotion/restaurants/Mequi
 
+### 
+GET http://localhost:3000/restaurant/BK
+
 ###
 //INSERINDO UM CUPON A UM RESTAURANTE
 POST http://localhost:3000/promotion/restaurants/Mequi
