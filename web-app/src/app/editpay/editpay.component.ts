@@ -64,6 +64,7 @@ export class EditpayComponent implements OnInit {
     this.findmain();
 
     this.mainPay.email = this.metodo.email;
+    this.mainPay.name = this.mainPay.type + "(" + this.mainPay.email + ")"
     console.log("antes put");
     console.log(this.mainPay);
     
@@ -72,6 +73,7 @@ export class EditpayComponent implements OnInit {
       console.log(res)
       this.service.getuser(this.user.id).then(user => {
         localStorage.setItem("user" , JSON.stringify(user));
+        localStorage.removeItem("mainPay");
         this.router.navigate(['/user/pay']);
       })
     });
