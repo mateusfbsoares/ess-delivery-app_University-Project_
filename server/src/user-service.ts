@@ -11,8 +11,8 @@ export class UserService {
     orders: [],
     metodos_de_pagamento : {
       metodosPagamento: [{"type":"Cartao de Credito",
-      "name":"nubank",
-      "number":"4004 3334",
+      "name":"nubank(**** **** **** 5555)",
+      "number":"4004333344445555",
       "name_titular":"matheus ferreira",
       "cvv":345,
       "flag":"visa",

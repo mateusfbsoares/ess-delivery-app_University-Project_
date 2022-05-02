@@ -17,7 +17,7 @@ export class InsertcreditComponent implements OnInit {
   }
 
   countcheck:number = 0;
-  checou:string;
+  checou:string = "deschecado";
   user:user;
   metodo:Metodos_Pagamento = new Metodos_Pagamento();
 
@@ -37,22 +37,22 @@ export class InsertcreditComponent implements OnInit {
     
     var corrections = "";
 
-  
-    if( this.metodo.number.length != 16 ){
-      corrections = corrections + "* Digite exatamente 16 digitos\n"
+    console.log(typeof this.metodo.number)
+    if( String(this.metodo.number).length != 16 ){
+      corrections = corrections + "* Digite exatamente 16 digitos no campo: número do cartão\n"
     }
-    if( this.metodo.number.length != 3 ){
+    if( String(this.metodo.cvv).length != 3 ){
       corrections = corrections + "* Digite exatamente 3 digitos\n"
     }
 
-    if( this.metodo.name_titular.length == 0 ){
+    if( this.metodo.name_titular == undefined ){
       corrections = corrections + "* Nome do titular não pode ficar vazio\n"
     }
     if( this.metodo.flag != "visa" && this.metodo.flag != "master"  ){
       corrections = corrections + "* Selecione visa ou master\n"
     }
-    if( this.metodo.number.length != 3 ){
-      corrections = corrections + "* Digite exatamente 3 digitos\n"
+    if( this.metodo.name == undefined ){
+      this.metodo.name = "";
     }
 
     if(corrections != ""){
@@ -68,6 +68,10 @@ export class InsertcreditComponent implements OnInit {
 
     //checa se os campos preenchidos estão ok
     if(!this.checkfields())return;
+
+    //colocando os 4 últimos digitos no nome
+
+    this.metodo.name = this.metodo.name + "(**** **** **** " +Number(this.metodo.number)%10000 + ")";
 
     // fazer confirmaçao dps
     var confirmId = prompt("confirme seu Id");
@@ -85,8 +89,8 @@ export class InsertcreditComponent implements OnInit {
     this.service.create(this.user.id,this.metodo).then(res => {
 
       //mudar para padrao se necessario
-      if(this.checou = "checado"){
-        localStorage.setItem("mainPayment" , JSON.stringify(res));
+      if(this.checou == "checado"){
+        localStorage.setItem("mainPay" , JSON.stringify(res));
       }
      
       if(res != null){

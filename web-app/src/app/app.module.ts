@@ -21,6 +21,8 @@ import { InsertcreditService } from './insertcredit/insertcredit.service';
 import { PixComponent } from './pix/pix.component';
 import { PicpayComponent } from './picpay/picpay.component';
 import { PaypalComponent } from './paypal/paypal.component';
+import { RemoveComponent } from './remove/remove.component';
+import { ErasepayComponent } from './erasepay/erasepay.component';
 
 
 @NgModule({
@@ -37,6 +39,8 @@ import { PaypalComponent } from './paypal/paypal.component';
     PixComponent,
     PicpayComponent,
     PaypalComponent,
+    RemoveComponent,
+    ErasepayComponent,
     
   ],
   imports: [
