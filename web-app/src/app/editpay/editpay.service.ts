@@ -6,7 +6,7 @@ import { user } from '../classes/users';
 @Injectable({
   providedIn: 'root'
 })
-export class ErasepayService {
+export class EditpayService {
 
   private headers = new Headers({'Content-Type': 'application/json'});
   private taURL = 'http://localhost:3000';
@@ -17,12 +17,12 @@ export class ErasepayService {
   }
 
   //     user/pay
-  delete(idUser:string, idMethod:string): Promise<Metodos_Pagamento> {
+  edit(id:string,metodo: Metodos_Pagamento): Promise<Metodos_Pagamento> {
     
-    return this.http.delete(this.taURL + "/user/" + idUser +"/metodos/" + idMethod)
+    return this.http.put(this.taURL + "/user/" + id +"/metodos",JSON.stringify(metodo), {headers: this.headers})
       .toPromise()
       .then(res => {console.log("staus: " + res.status)
-        if (res.status === 201) {return res.json() as Metodos_Pagamento} else {return null;}
+        if (res.status === 201) {return metodo;} else {return null;}
       })
       .catch(this.catch);
   }
@@ -37,6 +37,5 @@ export class ErasepayService {
     console.error('Oops, something went wrong',erro);
     return Promise.reject(erro.message || erro);
   }
-
 
 }

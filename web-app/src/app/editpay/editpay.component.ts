@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Metodos_Pagamento } from '../classes/metodos_pagamento';
 import { user } from '../classes/users';
-import { ErasepayService } from './erasepay.service';
+import { EditpayService } from './editpay.service';
 
 @Component({
-  selector: 'app-erasepay',
-  templateUrl: './erasepay.component.html',
-  styleUrls: ['./erasepay.component.css']
+  selector: 'app-editpay',
+  templateUrl: './editpay.component.html',
+  styleUrls: ['./editpay.component.css']
 })
-export class ErasepayComponent implements OnInit {
+export class EditpayComponent implements OnInit {
 
   clientId:string;
   
@@ -17,11 +17,13 @@ export class ErasepayComponent implements OnInit {
 
   sizePayments:number;
 
+  metodo:Metodos_Pagamento = new Metodos_Pagamento;
+
   mainPay:Metodos_Pagamento;
 
   mainName:string;
 
-  constructor(private router:Router, private aRouter:ActivatedRoute,private service: ErasepayService) {
+  constructor(private router:Router,private service: EditpayService ) {
    
   }
 
@@ -38,23 +40,22 @@ export class ErasepayComponent implements OnInit {
 
   }
 
-  deletePay(): void {
-    console.log(this.user.metodos_de_pagamento.metodosPagamento);
-    if(this.user.metodos_de_pagamento.metodosPagamento.length < 2){
-      alert("Adicione outro método antes de excluir este!");
-      this.router.navigate(['/user/pay']);
-      return;
-    }
+  onChange(novome:string):void{
+    console.log("mudoou");
+    this.findmain();
+    console.log(novome);
+  }
 
+  editPay(): void {
+ 
     //encontrar metodo que está no select
     this.findmain();
 
-    this.service.delete(this.user.id,String(this.mainPay.ident)).then(res => {
-      //mudar para padrao se necessario
+    this.service.edit(this.user.id,this.mainPay).then(res => {
+   
       console.log(res)
       this.service.getuser(this.user.id).then(user => {
         localStorage.setItem("user" , JSON.stringify(user));
-        //console.log(JSON.parse(localStorage.getItem("user")));
         this.router.navigate(['/user/pay']);
       })
     });
@@ -67,9 +68,8 @@ export class ErasepayComponent implements OnInit {
     this.mainPay = JSON.parse(localStorage.getItem("mainPay"));
     this.mainName = this.mainPay.name;
 
-    console.log(this.mainPay.type);
+    console.log(this.mainPay.name);
 
   }
-
 
 }

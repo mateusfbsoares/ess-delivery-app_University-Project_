@@ -28,6 +28,8 @@ import { PicpayService } from './picpay/picpay.service';
 import { ErasepayService } from './erasepay/erasepay.service';
 import { PicpayComponent } from './picpay/picpay.component';
 import { BarComponent } from './views/bar/bar.component';
+import { EditpayComponent } from './editpay/editpay.component';
+import { EditpayService } from './editpay/editpay.service';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,8 @@ import { BarComponent } from './views/bar/bar.component';
     PaypalComponent,
     PicpayComponent,
     ErasepayComponent,
-    BarComponent
+    BarComponent,
+    EditpayComponent
   ],
   imports: [
     BrowserModule,
@@ -86,6 +89,10 @@ import { BarComponent } from './views/bar/bar.component';
       {
         path: 'erasepayment',
         component:ErasepayComponent
+      },
+      {
+        path: 'editpayment',
+        component:EditpayComponent
       },
       {
         path: 'home',
