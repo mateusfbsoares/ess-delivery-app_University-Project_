@@ -47,6 +47,17 @@ export class EditpayComponent implements OnInit {
   }
 
   editPay(): void {
+
+    var confirmId = prompt("confirme seu Id");
+    
+    
+    if(confirmId != this.user.id){
+      return;
+    }
+    var confirme = prompt("para confirmar escreva: CONFIRMAR ");
+    if(confirme != "CONFIRMAR"){
+      return;
+    }
  
     //encontrar metodo que está no select
     console.log(this.mainPay);

@@ -63,7 +63,7 @@ export class PaypalComponent implements OnInit {
 
     //colocando os 4 últimos digitos no nome
 
-    this.metodo.name =  "PayPal";
+    this.metodo.name =  "PayPal(" + this.metodo.email + ")";
 
     // fazer confirmaçao dps
     var confirmId = prompt("confirme seu Id");
@@ -114,6 +114,10 @@ export class PaypalComponent implements OnInit {
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem("user"));
     this.metodo.type = "PicPay" ;
+    if(this.user.metodos_de_pagamento.metodosPagamento.length == 5){
+      alert("Número máximo de métodos de pagamento atingido, remova um para adicionar outro");
+      this.router.navigate(['/user/pay']);
+    }
     console.log(this.metodo);
     this.metodo.ident = 0;
    

@@ -51,6 +51,17 @@ export class ErasepayComponent implements OnInit {
       return;
     }
 
+    var confirmId = prompt("confirme seu Id");
+    
+    
+    if(confirmId != this.user.id){
+      return;
+    }
+    var confirme = prompt("para confirmar escreva: CONFIRMAR ");
+    if(confirme != "CONFIRMAR"){
+      return;
+    }
+
     //encontrar metodo que está no select
     this.findmain();
 

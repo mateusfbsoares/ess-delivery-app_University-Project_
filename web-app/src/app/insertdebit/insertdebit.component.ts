@@ -122,6 +122,10 @@ export class InsertdebitComponent implements OnInit {
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem("user"));
     this.metodo.type = "Cartao de Debito" ;
+    if(this.user.metodos_de_pagamento.metodosPagamento.length == 5){
+      alert("Número máximo de métodos de pagamento atingido, remova um para adicionar outro");
+      this.router.navigate(['/user/pay']);
+    }
    
   }
 

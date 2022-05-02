@@ -67,8 +67,7 @@ export class PicpayComponent implements OnInit {
 
     //colocando os 4 últimos digitos no nome
 
-    this.metodo.name =  "PicPay";
-
+    this.metodo.name =  "PicPay(" + this.metodo.email + ")";
     // fazer confirmaçao dps
     var confirmId = prompt("confirme seu Id");
     var confirme = prompt("para confirmar escreva: CONFIRMAR ");
@@ -114,6 +113,10 @@ export class PicpayComponent implements OnInit {
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem("user"));
+    if(this.user.metodos_de_pagamento.metodosPagamento.length == 5){
+      alert("Número máximo de métodos de pagamento atingido, remova um para adicionar outro");
+      this.router.navigate(['/user/pay']);
+    }
     this.metodo.type = "PicPay" ;
     console.log(this.metodo);
     this.metodo.ident = 0;
