@@ -33,9 +33,9 @@ export class CurrentOrderComponent implements OnInit {
       .then(res => {
         this.curOrder = res;
         if(this.curOrder.coupon) {
-          alert('rolou');
+          alert("Cupom aplicado com sucesso!");
         } else {
-          alert('nao rolou');
+          alert("Cupom não pode ser aplicado!");
         }
       })
   }

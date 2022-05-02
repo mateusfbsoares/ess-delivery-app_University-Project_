@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-import { User } from 'src/app/admin/user';
 import { LocalStorageService } from 'src/app/local-storage.service';
 
 @Component({
@@ -14,12 +12,11 @@ export class BarComponent implements OnInit {
   localStorage = new LocalStorageService();
   type: string;
 
-  constructor(private acRoute: ActivatedRoute) { }
+  constructor() { }
 
   ngOnInit() {
     this.type = this.localStorage.get('type');
     this.data = this.localStorage.get(this.type);
-    // alert(this.data.name)
   }
 
 }
