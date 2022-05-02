@@ -33,6 +33,10 @@ export class PicpayComponent implements OnInit {
     this.countcheck = this.countcheck + 1;
   }
 
+  backPage(){
+    this.router.navigate(['/addpayment']);
+  }
+
   checkfields():boolean{
     
     var corrections = "";

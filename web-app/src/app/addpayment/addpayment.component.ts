@@ -29,9 +29,14 @@ export class AddpaymentComponent implements OnInit {
     this.router.navigate(['/addpayment/paypal']);
   }
 
+  backPage(){
+    this.router.navigate(['/user/pay']);
+  }
+
+
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem("user"));;
-    console.log("no addpay " + this.user.name);
+    //console.log("no addpay " + this.user.name);
   }
 
 }

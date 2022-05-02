@@ -49,7 +49,10 @@ export class EditpayComponent implements OnInit {
   editPay(): void {
  
     //encontrar metodo que está no select
+    console.log(this.mainPay);
     this.findmain();
+
+    this.mainPay.email = this.metodo.email;
     console.log("antes put");
     console.log(this.mainPay);
     
@@ -62,6 +65,11 @@ export class EditpayComponent implements OnInit {
       })
     });
     
+  }
+
+
+  backPage(){
+    this.router.navigate(['/user/pay']);
   }
   
   ngOnInit() {

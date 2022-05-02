@@ -107,6 +107,9 @@ export class PaypalComponent implements OnInit {
   
     console.log(this.user.name + " payment to addpay")
   }
+  backPage(){
+    this.router.navigate(['/addpayment']);
+  }
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem("user"));

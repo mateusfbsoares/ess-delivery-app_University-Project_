@@ -19,7 +19,7 @@ export class BarComponent implements OnInit {
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem("user"));
-    console.log(this.user);
+    //console.log(this.user);
     this.name = this.user.name;
     this.id = this.user.id;
   }

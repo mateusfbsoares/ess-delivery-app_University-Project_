@@ -19,6 +19,8 @@ export class PaymentComponent implements OnInit {
 
   mainPay:Metodos_Pagamento;
 
+  metodo:Metodos_Pagamento;
+
   mainName:string;
 
   constructor(private router:Router, private aRouter:ActivatedRoute,private service: PaymentService) {
@@ -54,7 +56,11 @@ export class PaymentComponent implements OnInit {
     this.findmain();
     
     this.router.navigate(['/addpayment']);
-    console.log(this.user.name + " payment to addpay")
+    //console.log(this.user.name + " payment to addpay")
+  }
+
+  backPage(){
+    this.router.navigate(['/user']);
   }
   
   ngOnInit() {
@@ -69,8 +75,8 @@ export class PaymentComponent implements OnInit {
     
     this.mainName = this.mainPay.name;
 
-    console.log(this.mainName);
-    console.log("localstorage deu bom " + this.user.name);
+    //console.log(this.mainName);
+    //console.log("localstorage deu bom " + this.user.name);
    
 
   }

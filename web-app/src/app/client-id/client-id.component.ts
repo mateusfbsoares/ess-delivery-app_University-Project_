@@ -20,6 +20,10 @@ export class ClientIdComponent implements OnInit {
     });
   }
 
+  backPage(){
+    this.router.navigate(['/home']);
+  }
+
   ngOnInit() {
     console.log("clientId");
   }

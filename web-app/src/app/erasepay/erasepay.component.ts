@@ -38,6 +38,10 @@ export class ErasepayComponent implements OnInit {
 
   }
 
+  backPage(){
+    this.router.navigate(['/user/pay']);
+  }
+
   deletePay(): void {
     console.log(this.user.metodos_de_pagamento.metodosPagamento);
     if(this.user.metodos_de_pagamento.metodosPagamento.length < 2){
