@@ -42,6 +42,7 @@ export class ErasepayComponent implements OnInit {
     console.log(this.user.metodos_de_pagamento.metodosPagamento);
     if(this.user.metodos_de_pagamento.metodosPagamento.length < 2){
       alert("Adicione outro método antes de excluir este!");
+      
       this.router.navigate(['/user/pay']);
       return;
     }
@@ -54,6 +55,7 @@ export class ErasepayComponent implements OnInit {
       console.log(res)
       this.service.getuser(this.user.id).then(user => {
         localStorage.setItem("user" , JSON.stringify(user));
+        localStorage.removeItem("mainPay")
         //console.log(JSON.parse(localStorage.getItem("user")));
         this.router.navigate(['/user/pay']);
       })
