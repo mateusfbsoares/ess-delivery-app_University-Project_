@@ -14,10 +14,10 @@ export class ProfileComponent implements OnInit {
   user: User;
   id: string;
   localStorage = new LocalStorageService();
-  
+
   profileSrc: string = "/assets/images/user-profile.png";
 
-  constructor(private acRoute: ActivatedRoute, private route: Router) {}
+  constructor(private acRoute: ActivatedRoute, private route: Router) { }
 
   ngOnInit(): void {
     this.user = this.localStorage.get('user');
@@ -27,17 +27,21 @@ export class ProfileComponent implements OnInit {
     //this.acRoute.params.subscribe((params: Params) => this.id = params['id']);
   }
 
-  toOrders(){
+  toOrders() {
     this.route.navigate(["user", this.user.id, "orders"]);
   }
 
-  toPayment(){
+  toPayment() {
     this.route.navigate(["user", this.user.id, "payment"]);
   }
 
-  toCurrentOrder(){
+  toCurrentOrder() {
     this.route.navigate(["user", this.user.id, "current-order"]);
   }
 
+  //TESTE - simulação de pedido finalizado
+  toSimulateFinishedOrder(orderId) {
+    this.route.navigate(["user", this.user.id, "finished-order", orderId]);
+  }
 
 }

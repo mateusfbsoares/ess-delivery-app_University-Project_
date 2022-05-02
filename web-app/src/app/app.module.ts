@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, TemplateRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule }   from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -101,7 +101,13 @@ import { EmailService } from './email/email.service';
       {
         path: 'user/:id/payment',
         component: ProfileComponent
+      },
+
+      {
+        path: 'user/:id/finished-order/:id',
+        component: EmailComponent
       }
+
     ]),
     BrowserAnimationsModule
   ],
