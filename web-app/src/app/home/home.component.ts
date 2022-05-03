@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../local-storage.service';
 
@@ -9,11 +10,13 @@ import { LocalStorageService } from '../local-storage.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private route: Router) {}
+  constructor(private route: Router, private serviceTitle: Title) {}
 
   localStorage = new LocalStorageService();
   
-  ngOnInit() {}
+  ngOnInit() {
+    this.serviceTitle.setTitle('Home')
+  }
   
   navigateLogin(type:string): void{
     this.localStorage.set('type', type);

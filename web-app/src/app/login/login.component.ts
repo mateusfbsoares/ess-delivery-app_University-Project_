@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, setTestabilityGetter } from '@angular/core';
 import { query } from '@angular/animations';
 import { NgModule } from '@angular/core';
 import { Params, Router } from '@angular/router';
 import { LoginService } from './login.service';
 import { LocalStorageService } from 'src/app/local-storage.service';
 import { Coupon } from '../admin/coupon';
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -13,12 +14,13 @@ import { Coupon } from '../admin/coupon';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  constructor(private route: Router, private service: LoginService) {}
+  constructor(private route: Router, private service: LoginService, private titleService: Title) {}
   type: string;
 
   localStorage = new LocalStorageService();
 
   ngOnInit(): void {
+    this.titleService.setTitle('login');
     this.type = this.localStorage.get('type');
   }
   
