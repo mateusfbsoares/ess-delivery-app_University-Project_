@@ -49,7 +49,6 @@ import { EmailService } from './email/email.service';
     OrdersComponent,
     LogoComponent,
     EditComponent,
-    promotion-front-e-back,
     CurrentOrderComponent,
     LogoutComponent,
     EmailComponent,
