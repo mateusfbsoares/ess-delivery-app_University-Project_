@@ -7,6 +7,8 @@ import { readFiles, restaurants } from './src/readFiles';
 import * as fs from 'fs';
 import { Order, Admin } from './src/users';
 import EmailService from './src/email-service';
+import generateOrderReceipt from '../utils/generate_order_receipt'
+
 const routes = Router();
 
 // Inicialização
@@ -372,24 +374,7 @@ routes.post('/payment/confirm/:userid', async (req, res) => {
     const user = usersService.getUserById(userid);
     //DEBUG: console.log(user);
     if (user) {
-      var msg: string =
-        // `Hi ${user.name}, your order has been confirmed ${JSON.stringify(order)}`;
-
-        `
-      Olá, ${user.name}, seu pedido ${order.id} em ${order.restaurant} foi confirmado.
-
-      -------- Nota Fiscal -------- 
-      ${order.products.map((product) => {
-          return (
-            `${product.quantity}x ${product.name} - R$${product.price * product.quantity}\n      `
-          )
-        }).join("")}
-      ${order.coupon ? `Desconto: R$ ${order.coupon.discount} (Coupom: R$ ${order.coupon.name})` : ""}
-      ------------------------------
-      Total: R$${order.amount}
-
-      Obrigado por comprar com a gente! 
-      `;
+      var msg: string = generateOrderReceipt(user, order)
 
 
       var info = await emailService.sendMail(
