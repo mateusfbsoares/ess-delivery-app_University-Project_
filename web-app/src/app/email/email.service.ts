@@ -17,14 +17,6 @@ export class EmailService {
 
     const info = await this.sendEmail(user, order);
 
-    // mudei essa alert message daqui para orders.component.ts, já que e-mail service é utilizado em outro lugar mas nesse outro lugar não se deseja que seja mostrado um alert.
-    // if (info)
-    //   // alert('order sent ' + JSON.stringify(info));
-    //   alert("(DEBUG) message from email.service.ts: Email send successfuly")
-    // else
-    //   // alert('problem sending');
-    //   alert(' (DEBUG) message from email.service.ts: Email will be sent whithin 24 hours');
-
     if (info)
       console.log("email.service.ts: email successfuly sent")
     else

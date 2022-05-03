@@ -1,30 +1,30 @@
 <div>
 
   <!-- email sent -->
-  <div ngif="email-successfully-sent">
+  <div *ngIf="email_successfully_sent">
     <h1>Pedido Finalizado</h1>
     <p>Te enviamos um e-mail com o comprovante do pedido</p>
-    <button>Voltar para o perfil</button>
-    <a href="https://google.com">Não recebi nenhum e-mail</a>
+    <button (click)="toUserProfile()">Voltar para o perfil</button>
+    <button (click)="showNextScreen1()">Não recebi nenhum e-mail</button>
   </div>
 
-  <div ngif="user-wants-to-re-send-email">
+  <div *ngIf="user_wants_to_re_send_email">
     <h3>Observe se o e-mail se encontra na caixa de spam</h3>
-    <button>Re-enviar e-mail com comprovante de pedido</button>
-    <a href="https://google.com">Voltar para o perfil</a>
+    <button (click)="sendEmail_and_showNextScreen2()">Re-enviar e-mail com comprovante de pedido</button>
+    <a (click)="toUserProfile()">Voltar para o perfil</a>
   </div>
 
-  <div ngif="email-will-be-re-sent-in-24-hours">
+  <div *ngIf=" email_will_be_re_sent_in_24_hours">
     <h3>Você receberá um e-mail com o comprovante de pedido dentro de 24h </h3>
-    <button>Voltar para o perfil</button>
+    <button (click)="toUserProfile()">Voltar para o perfil</button>
   </div>
 
 
 
   <!-- email not sent (some error ocurred) -->
-  <div ngif="email-not-sent-successfully">
+  <div *ngIf="email_not_successfully_sent">
     <h3>Você receberá um e-mail com o comprovante de pedido dentro de 24h </h3>
-    <button>Voltar para o perfil</button>
+    <button (click)="toUserProfile()">Voltar para o perfil</button>
   </div>
 
 </div>

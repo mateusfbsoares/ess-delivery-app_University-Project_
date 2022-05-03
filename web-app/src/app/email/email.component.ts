@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Order, User } from '../admin/user';
 import { LocalStorageService } from '../local-storage.service';
 import { EmailService } from './email.service';
@@ -12,45 +12,72 @@ import { EmailService } from './email.service';
 
 export class EmailComponent implements OnInit {
 
-  constructor(private emailService: EmailService, private route: ActivatedRoute) { }
-
-  infoGetter: string;
-
-  user: User = {
-    name: null,    //string
-    id: null,     //string;
-    email: null,    //string;
-    orders: null   //Order[];
-  };
-
-  order: Order = {
-    id: null,          //string;
-    products: null,    //Product[];
-    amount: null,      //number;
-    coupon: null,      //Coupon;
-    restaurant: null,  //string;
-  }
+  constructor(private emailService: EmailService, private route: Router,) { }
 
   localStorage = new LocalStorageService();
 
-  async sendEmail() {
-    // get user id and order id from localstorage
-    this.user.id = this.localStorage.get('user_id');
-    this.order.id = this.localStorage.get('order_id')
+  first_try = true
 
+  email_successfully_sent: boolean = false;
+  email_not_successfully_sent: boolean = false;
+  user_wants_to_re_send_email: boolean = false;
+  email_will_be_re_sent_in_24_hours = false;
+
+  user: User = {
+    name: null,                              //string
+    id: this.localStorage.get('user_id'),    //string;
+    email: null,                             //string;
+    orders: null                             //Order[];
+  };
+
+  order: Order = {
+    id: this.localStorage.get('order_id'),   //string;
+    products: null,                          //Product[];
+    amount: null,                            //number;
+    coupon: null,                            //Coupon;
+    restaurant: null,                        //string;
+  }
+
+
+  async sendEmail() {
     const info = await this.emailService.sendEmail(this.user, this.order);
-    this.infoGetter = info
-    console.log("response from emailService: " + info);
+
+    // set ngIf variables, se for a primeira vez tentando enviar e-mail 
+    console.log("first_try: " + this.first_try)
+    if (this.first_try) {
+      // set ngIf variables
+      if (info)
+        this.email_successfully_sent = true
+      else
+        this.email_not_successfully_sent = true
+
+      // set first_try to false, so it doesn't do this check on a second try
+      this.first_try = false
+    }
+
+
+  }
+
+  toUserProfile() {
+    this.route.navigate(["user", this.user.id, "profile"]);
+  }
+
+  showNextScreen1() {
+    this.email_successfully_sent = false
+    this.user_wants_to_re_send_email = true
+  }
+
+  showNextScreen2() {
+    this.user_wants_to_re_send_email = false
+    this.email_will_be_re_sent_in_24_hours = true
+  }
+
+  sendEmail_and_showNextScreen2() {
+    this.sendEmail()
+    this.showNextScreen2()
   }
 
   ngOnInit(): void {
-
-    // DEBUG
-    // console.log("######################")
-    // console.log("user id: " + this.user.id)
-    // console.log("order id: " + this.order.id)
-    // console.log("#####################")
-
     this.sendEmail()
   }
 }
