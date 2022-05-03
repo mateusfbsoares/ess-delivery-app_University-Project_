@@ -4,7 +4,23 @@
         "id": "578dbdea",
         "email": "mileto@ess.com",
         "address": "Av. Tales de Mileto, 13, Barro",
-        "orders": []
+        "orders": [],
+        "paymentMethods" : [
+            {"type":"Cartao de Credito",
+            "name":"nubank(  ** 5555)",
+            "number":"4004333344445555",
+            "name_titular":"matheus ferreira",
+            "cvv":345,
+            "flag":"visa",
+            "email":"",
+            "id": 0
+            },
+            {
+                "type":"PicPay",
+                "name":"PicPay(mileto@ess.com)",
+                "email":"mileto@ess.com",
+                "id": 1
+            }]
     },
     {
         "name": "Mateus",
@@ -12,6 +28,7 @@
         "address": "Av. Boa Viagem, 123, Boa Viagem",
         "email": "matheus@ess.com",
         "orders": []
+        
     },
     {
         "name": "Zenio",

@@ -7,6 +7,10 @@ import { readFiles, restaurants } from './src/readFiles';
 import * as fs from 'fs';
 import { Order, Admin } from './src/users';
 import EmailService from './src/email-service';
+
+import { PaymentMethod } from './src/payment-method';
+import { PaymentMethodService } from './src/payment-service';
+
 const routes = Router();
 
 // Inicialização
@@ -14,6 +18,7 @@ var adminService: PromotionService = new PromotionService();
 var restaurantsService: PromotionService[] = [];
 var usersService: UserService = new UserService();
 var emailService: EmailService = new EmailService();
+var methodsService : PaymentMethodService = new PaymentMethodService();
 
 var admins: Admin[] = [];
 
@@ -391,17 +396,113 @@ routes.post('/payment/confirm/:userid', async (req, res) => {
 });
 
 
+//metodos
+routes.get('/user/:id/methods', function(req, res){
+    const userId = req.params.id;
+    const index = usersService.getUserIndex(userId);
+    console.log(index);
+    const methods = usersService.users[index].paymentMethods;
+    console.log(methods)
+    res.send(JSON.stringify(methods));
+  });
+
+//metodo sozinho
+  routes.get('/user/:id/metodos/:ident', function(req, res){
+    const userId = req.params.id;
+    const index = usersService.getUserIndex(userId);
+    const id = req.params.ident;
+    const metodo = usersService.users[index].paymentMethods.find(e => e.id == id);
+    if (metodo) {
+      res.send(metodo);
+    } else {
+      res.status(404).send({ message: `Method ${id} could not be found`});
+    }
+  });
+  
+  routes.post('/user/:id/methods', function(req, res){
+    console.log("entrou no poste");
+    const userId = req.params.id;
+    console.log(usersService.users)
+    const index = usersService.getUserIndex(userId);
+ 
+    const newMethod: PaymentMethod = <PaymentMethod> req.body;
+    console.log(newMethod);
+    
+    try {
+      console.log("antes result")
+
+      methodsService.set(usersService.users[index].paymentMethods);
+      const result = methodsService.add(newMethod);
+      console.log("post", usersService.users[index].paymentMethods);
+      console.log(result)
+
+      //const result = usersService.users[index].metodos_de_pagamento.add(metodo);
+      console.log("resulta aqui:")
+      console.log(result);
+      if (result) {
+        console.log("de bom 201")
+        res.status(201).send(result);
+      } else {
+        res.status(403).send({ message: "Method list is full, method name is already exist or method type is invalid."});
+      }
+    } catch (err) {
+      const {message} = err;
+      res.status(400).send({ message })
+    }
+  });
+
+  
+  routes.put('/user/:id/methods/', function(req, res){
+    console.log("editar método \n antes:");
+    const userId = req.params.id;
+    const index = usersService.getUserIndex(userId);
+    
+    const method: PaymentMethod = <PaymentMethod> req.body;
+    
+    console.log("antes")
+    console.log(method.id)
+    console.log(usersService.users[index].paymentMethods)
+
+    methodsService.set(usersService.users[index].paymentMethods)
+    const result = methodsService.update(method);
+    
+    if (result) {
+      console.log("depois:")
+      console.log(result);
+      res.status(201).send(result);
+    } else {
+      res.status(404).send({ message: `Inconsistents datas.`});
+    }
+  });
+  
+  routes.delete('/user/:idUser/methods/:idPay', function(req, res){
+
+    console.log("entroou deleetee")
+    const userId = req.params.idUser;
+    const methodId = req.params.idPay;
+    const index = usersService.getUserIndex(userId);
+    console.log(methodId);
+    console.log("printando service")
+    
+    methodsService.set(usersService.users[index].paymentMethods);
+
+    const eraseMethod: PaymentMethod = usersService.users[index].paymentMethods.find( e => e.id == methodId);
+    try {
+      
+      console.log("printando metohd:")
+    
+      const result = methodsService.remove(eraseMethod);
+      
+      console.log(usersService.users[index].paymentMethods);
+      if (result) {
+        res.status(201).send(result);
+      } else {
+        res.status(403).send({ message: "Method list is void or method does not exist."});
+      }
+    } catch (err) {
+      const {message} = err;
+      res.status(400).send({ message })
+    }
+  });
+
 export default routes;
-
-// Login
-// - [ ]  Checagem de ID pra ver se é realmente um cliente ou adm ou restaurante
-
-// User
-// - [x]  Pedido não alcançou o valor mínimo do cupom
-// - [x]  Cupom não pode ter um desconto maior que o valor do produto
-// - [x]  Não pode ter mais de um cupom em um pedido
-// - [x]  Verificar se o cupom está válido na hora da compra -> checar o status
-// - [x]  Perguntar se realmente é necessário checagem de data ou só o status do cupom já basta => não precisa checar data
-// - [x]  Cupom de primeira compra do app existe vitalício e só pode ser usado uma vez por cliente => só criar um exemplo
-// - [x]  Todo cupom só pode ser utilizado 1 vez por cliente
-// Checar se o cupom a ser inserido tem todos os campos preenchidos => exceto id

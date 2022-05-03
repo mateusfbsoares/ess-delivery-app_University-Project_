@@ -27,7 +27,7 @@ export class ProfileComponent implements OnInit {
   }
 
   toPayment() {
-    this.route.navigate(["user", this.user.id, "payment"]);
+    this.route.navigate(["user/pay"]);
   }
 
   toCurrentOrder(){
