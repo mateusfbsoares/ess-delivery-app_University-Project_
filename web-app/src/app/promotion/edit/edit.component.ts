@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, Params } from '@angular/router';
-import { Admin } from 'src/app/admin/admin';
+import { Router } from '@angular/router';
+import { Alert } from 'selenium-webdriver';
 import { Coupon } from 'src/app/admin/coupon';
-import { Restaurant } from 'src/app/admin/restaurant';
 import { LocalStorageService } from 'src/app/local-storage.service';
 import { EditService } from './edit.service';
 
@@ -21,8 +20,7 @@ export class EditComponent implements OnInit {
   type: string;
   localStorage = new LocalStorageService();
 
-  constructor(private service: EditService, private route: Router, private acRoute: ActivatedRoute) {
-  }
+  constructor(private service: EditService, private route: Router) {}
   
   ngOnInit(){
     this.coupon = this.localStorage.get('coupon');
@@ -47,23 +45,13 @@ export class EditComponent implements OnInit {
         if (result) {
           this.localStorage.set('coupons', result);
           this.newCoupon = new Coupon();
+          alert("Cupom atualizado com sucesso!")
+          this.back();
         }
       })
       .catch(erro => alert("Dados inválidos"));
   }
-/*
-  updateLocalStorage(newCoupon: Coupon) {
-    var coupons: Coupon[] = this.localStorage.get('coupons');
-    this.localStorage.remove('coupons');
-    coupons.forEach(e => console.log("fe", e.id, this.coupon.id));
-    var index = coupons.findIndex(e => e.id == this.coupon.id);
-    //console.log(index);
-    coupons[index] = newCoupon;
 
-    this.localStorage.set('coupons', coupons);
-    //console.log(this.localStorage.get('coupons'));
-  }
-*/
   back(){
     if(this.type == 'rest'){
       this.route.navigate(["promotion", this.type, this.data.name]);

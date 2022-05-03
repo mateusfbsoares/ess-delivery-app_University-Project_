@@ -22,7 +22,6 @@
         <label>Produto</label>
       </th>
       <td class="column-value" *matCellDef="let coupon">
-        <!-- <ng-template [ngIf]="coupon.adm">Nenhum</ng-template> -->
         {{coupon.product}}
       </td>
     </div>
@@ -74,3 +73,5 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 </div>
+
+<h2 *ngIf="coupons.length == 0" class="header-home">Não há cupons cadastrados!</h2>

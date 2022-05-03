@@ -65,14 +65,14 @@ routes.get('/admin/:id', function(req, res){
 
 routes.get('/promotion/admin', (req, res) => {
     const promotions = adminService.get();
-    res.send(JSON.stringify(promotions));
+    res.status(201).send(JSON.stringify(promotions));
 });
 
 routes.get('/promotion/admin/:id', function(req, res){
   const id = req.params.id;
   const coupon = adminService.getByName(id);
   if (coupon) {
-    res.send(coupon);
+    res.status(201).send(coupon);
   } else {
     res.status(404).send({ message: ` Coupon ${id} could not be found`});
   }
@@ -104,9 +104,9 @@ routes.put('/promotion/admin/:name', function (req, res) {
   const err = `Coupon ${name} could not be found.`;
 
   if (result) {
-    res.send(result);
     adminService.updateFile("admin-coupons.json");
     console.log(message);
+    res.status(201).send(result);
   } else {
     res.status(404).send({ message: err});
   }
@@ -122,9 +122,9 @@ routes.delete('/promotion/admin/:name', function (req, res){
   const err = `Coupon ${name} could not be found.`;
 
   if (result) {
-    res.send({ message: message});
     adminService.updateFile("admin-coupons.json");
     console.log(message);
+    res.status(201).send({ message: message});
   } else {
     res.status(404).send({ message: err});
   }
@@ -142,7 +142,7 @@ routes.get('/restaurant/:restName', (req, res) => {
   const err = `Restaurant ${restName} not found`;
   if(rest) {
     console.log(msg)
-    res.status(200).send(rest);
+    res.status(201).send(rest);
   } else {
     console.log(err);
     res.status(404).send({message: err});
@@ -157,14 +157,14 @@ routes.get('/promotion/restaurants', (req, res) => {
 routes.get('/promotion/restaurants/:rest', (req, res) => {
   const restName = req.params.rest;
   const index = restaurants.findIndex((result) => result.name == restName)
-  res.send(JSON.stringify(restaurants[index].coupons));
+  res.status(201).send(JSON.stringify(restaurants[index].coupons));
 });
 
 routes.get('/promotion/restaurants/:rest/:id', function(req, res){
   const { rest, id } = req.params;
   const coupon = restaurantsService[rest].getByName(id);
   if (coupon) {
-    res.send(coupon);
+    res.status(201).send(coupon);
   } else {
     res.status(404).send({ message: ` Coupon ${id} could not be found`});
   }
@@ -181,9 +181,9 @@ routes.post('/promotion/restaurants/:rest', function(req, res){
     restaurants[index].coupons = restaurantsService[restName].coupons;
 
     if (result) {
-      res.status(201).send(result);
       updateRestaurantsFile();
       console.log(result);
+      res.status(201).send(result);
     } else {
       res.status(403).send({ message: "Cupom não pode ser adicionado"});
     }
@@ -206,7 +206,7 @@ routes.put('/promotion/restaurants/:rest/:id', function (req, res) {
   const message = `Coupon ${id} has been updated.`;
   
   if (result) {
-    res.send(restaurants[index].coupons);
+    res.status(201).send(restaurants[index].coupons);
     updateRestaurantsFile();
     console.log(message);
   } else {
@@ -230,9 +230,9 @@ routes.delete('/promotion/restaurants/:rest/:id', function (req, res){
   const message = `Coupon ${id} has been deleted.`;
   
   if (result) {
-    res.send(restaurants[index].coupons);
     updateRestaurantsFile();
     console.log(message);
+    res.status(201).send(restaurants[index].coupons);
   } else {
     res.status(404).send({ message: err});
   }
@@ -250,10 +250,10 @@ routes.get('/users/:id', (req, res) => {
   const err = `user not found`;
   if(user) {
     console.log(msg);
-    res.status(200).send(user);
+    res.status(201).send(user);
   } else {
     console.log(err);
-    res.send(404).send({message: err});
+    res.status(404).send({message: err});
   }
 });
 
@@ -263,7 +263,12 @@ routes.get('/user/:id/orders', function(req, res){
   const userId = req.params.id;
   const index = usersService.getUserIndex(userId);
   console.log(usersService.users[index]);
-  res.send(JSON.stringify(usersService.users[index].orders));
+  var orders = usersService.users[index].orders;
+  if (orders){
+    res.status(201).send(orders);
+  } else {
+    res.status(404).send(orders);
+  }
 });
 
 // Adiciona cupom ao pedido
@@ -271,16 +276,18 @@ routes.post('/user/:id/order', function(req, res){
   var couponName: string = <string> req.body.couponName; // isso daqui pode mudar, order.coupon pode virar string
   var order: Order = <Order> req.body.order;
   var userId = req.params.id;
-  
   var err;
   
   // se o cupom é de restaurante
+  
   var coupon: Coupon = restaurantsService[order.restaurant].getByName(couponName);
+
   if(coupon){
     applyCoupon();
   }else{
     // se não for, é de adm
     coupon = adminService.getByName(couponName);
+    
     if(coupon){
       applyCoupon();
     }else{
@@ -291,9 +298,11 @@ routes.post('/user/:id/order', function(req, res){
   function applyCoupon() {
     [order, err] = usersService.applyCouponInOrder(userId, order, coupon);
 
-    if (order.coupon == undefined) {
+    if (order.coupon.id == '') {
+      console.log(err);
       res.status(403).send(err);
     } else {
+      console.log(order);
       res.status(201).send(order);
     }
   }
@@ -301,29 +310,29 @@ routes.post('/user/:id/order', function(req, res){
 });
 
 // Deletar cupom do pedido do usuário
-routes.delete('/user/:id/order', function (req, res){
-  const userId = req.params.id
-  var couponName: string = <string> req.body.couponName;
-  var order: Order = <Order> req.body.order;
+// routes.delete('/user/:id/order', function (req, res){
+//   const userId = req.params.id
+//   var couponName: string = <string> req.body.couponName;
+//   var order: Order = <Order> req.body.order;
 
-  var coupon: Coupon = restaurantsService[order.restaurant].getByName(couponName);
+//   var coupon: Coupon = restaurantsService[order.restaurant].getByName(couponName);
 
-  if (coupon == undefined){
-    coupon = adminService.getByName(couponName);
-  }
+//   if (coupon == undefined){
+//     coupon = adminService.getByName(couponName);
+//   }
   
-  order.coupon = coupon;
-  order = usersService.removeCoupon(order);
+//   order.coupon = coupon;
+//   order = usersService.removeCoupon(order);
 
-  const message = `Coupon ${couponName} has been removed.`;
-  const err = "Não deu ein :(";
+//   const message = `Coupon ${couponName} has been removed.`;
+//   const err = "Não deu ein :(";
   
-  if (order) {
-    res.status(201).send({order, message});
-  } else {
-    res.status(404).send({ err });
-  }
-});
+//   if (order) {
+//     res.status(201).send({order, message});
+//   } else {
+//     res.status(404).send({ err });
+//   }
+// });
 
 // ADICIONAR UM PEDIDO AO ARRAY DE PEDIDOS DO USUÁRIO
 routes.post('/user/:id/orders', function(req, res){
@@ -332,28 +341,27 @@ routes.post('/user/:id/orders', function(req, res){
   const index = usersService.getUserIndex(userId);
   var result = undefined;
   try {
-    if(order.amount >= order.coupon.minValue && order.coupon.status == "Ativo"){
-      result = usersService.addOrder(index, order);
-      if (result) {
-        res.status(201).send(result);
-        usersService.updateFile();
-        console.log("Pedido foi finalizado com sucesso");
-      }else {
-        res.status(403).send({ message: "Pedido não foi finalizado"});
-      }
-    }else{
-      result = usersService.removeCoupon(order);
-      if (result) {
-        res.status(403).send({ message: "Cupom inválido", result });
-      }
+    // if(order.amount >= order.coupon.minValue && order.coupon.status == "Ativo"){
+    result = usersService.addOrder(index, order);
+    if (result) {
+      res.status(201).send(result);
+      usersService.updateFile();
+      console.log("Pedido foi finalizado com sucesso");
+    }else {
+      res.status(403).send({ message: "Pedido não foi finalizado"});
     }
+    // }else{
+    //   result = usersService.removeCoupon(order);
+    //   if (result) {
+    //     res.status(403).send({ message: "Cupom inválido", result });
+    //   }
+    // }
     
   } catch (err) {
     const { message } = err;
     res.status(400).send({ message })
   }
 });
-
 
 // Envia email
 routes.post('/payment/confirm/:userid', async (req, res) => {
@@ -381,8 +389,6 @@ routes.post('/payment/confirm/:userid', async (req, res) => {
     res.status(400).send( { msg });
   }
 });
-
-
 
 
 export default routes;

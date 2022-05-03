@@ -79,3 +79,7 @@ label {
 img {
     cursor: pointer;
 }
+
+.info-bar {
+    margin-bottom: 4rem;
+}

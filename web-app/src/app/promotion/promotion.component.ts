@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NgModule } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Coupon } from '../admin/coupon';
-import { Restaurant, Product } from '../admin/restaurant';
 import { LocalStorageService } from '../local-storage.service';
 import { PromotionService } from './promotion.service';
 
@@ -22,17 +20,11 @@ export class PromotionComponent implements OnInit {
   
   constructor(private promotionService: PromotionService, private route: Router) {
     this.status = "Inativo";
-    // this.type = this.localStorage.get('type');
-    // this.data = this.localStorage.get(this.type);
   }
   
   ngOnInit(): void {
-    //this.acRoute.params.subscribe((params: Params) => [this.action, this.type] = [params['action'], params['type']]);
-    // this.promotionService.type = this.localStorage.get('type');
     this.type = this.localStorage.get('type');
     this.data = this.localStorage.get(this.type);
-    //if(this.action == "add-coupon"){
-    //  this.title = "Adicionar um novo cupom";
 
   }
 
@@ -50,8 +42,6 @@ export class PromotionComponent implements OnInit {
     
     newCoupon.status = this.status;
 
-    // alert(newCoupon.product);
-
     this.promotionService.createCoupon(newCoupon)
     .then(couponCreated => {
       if (couponCreated) {
@@ -64,20 +54,11 @@ export class PromotionComponent implements OnInit {
         }
         this.localStorage.set('coupons', currentCoupons);
         this.coupon = new Coupon();
+        this.back();
       }
     })
     .catch(erro => alert("Dados inválidos"));
   }
-
-
-  // updateLocalStorage(newCoupon: Coupon) {
-  //   var coupons = this.localStorage.get('coupons');
-  //   this.localStorage.remove('coupons');
-  //   // var coupons = this.promotionService.getCoupons();
-  //   coupons.push(newCoupon);
-  //   console.log(coupons);
-  //   this.localStorage.set('coupons', coupons);
-  // }
 
   back(){
     if(this.type == 'rest'){

@@ -9,17 +9,21 @@ GET http://localhost:3000/promotion/restaurants/Mequi
 //TODOS OS CUPONS DE TODOS OS RESTAURANTES
 GET http://localhost:3000/promotion/restaurants/Mequi
 
+### 
+GET http://localhost:3000/restaurant/BK
+
 ###
 //INSERINDO UM CUPON A UM RESTAURANTE
 POST http://localhost:3000/promotion/restaurants/Mequi
 Content-Type: application/json
 
 {
-    "name": "QUARTEIRAO",
+    "name": "2BIGMEQUIPOR1",
+    "product": "Big Méqui",
     "adm": false,
     "minValue": 15,
-    "discount": 0.1,
-    "status": "Inativo" 
+    "discount": 0.5,
+    "status": "Ativo" 
 }
 
 // ATUALIZA CUPOM DO RESTAURANTE
