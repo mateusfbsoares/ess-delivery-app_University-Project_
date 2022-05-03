@@ -20,9 +20,10 @@ export class BarComponent implements OnInit {
     this.route.navigate(["/home"]);
   }
 
-  goToProfile(user_id: string) {
-    this.route.navigate(["user", user_id, "profile"]);
-  }
+  // to enable this functionality, the best thing would be to make different types of profiles, so we can know beforehand which route to go. This is not a main priority, so it should be implemented only if we are given more time.
+  // goToProfile(user_id: string) {
+  //   this.route.navigate(["user", user_id, "profile"]);
+  // }
 
 
 
