@@ -13,20 +13,72 @@ import { EmailService } from './email.service';
 
 export class EmailComponent implements OnInit {
 
-  constructor(private emailService: EmailService, private route: ActivatedRoute) { }
-  
-  user: User;
-  order: Order;
+  constructor(private emailService: EmailService, private route: Router,) { }
+
   localStorage = new LocalStorageService();
+
+  first_try = true
+
+  email_successfully_sent: boolean = false;
+  email_not_successfully_sent: boolean = false;
+  user_wants_to_re_send_email: boolean = false;
+  email_will_be_re_sent_in_24_hours = false;
+
+  user: User = {
+    name: null,                              //string
+    id: this.localStorage.get('user_id'),    //string;
+    email: null,                             //string;
+    orders: null                             //Order[];
+  };
+
+  order: Order = {
+    id: this.localStorage.get('order_id'),   //string;
+    products: null,                          //Product[];
+    amount: null,                            //number;
+    coupon: null,                            //Coupon;
+    restaurant: null,                        //string;
+  }
+
 
   async sendEmail() {
     const info = await this.emailService.sendEmail(this.user, this.order);
-    console.log(info);
+
+    // set ngIf variables, se for a primeira vez tentando enviar e-mail 
+    console.log("first_try: " + this.first_try)
+    if (this.first_try) {
+      // set ngIf variables
+      if (info)
+        this.email_successfully_sent = true
+      else
+        this.email_not_successfully_sent = true
+
+      // set first_try to false, so it doesn't do this check on a second try
+      this.first_try = false
+    }
+
+
   }
 
-  ngOnInit(): void { 
-    this.user = this.localStorage.get('user');
-    this.order = this.localStorage.get('order')
+  toUserProfile() {
+    this.route.navigate(["user", this.user.id, "profile"]);
+  }
+
+  showNextScreen1() {
+    this.email_successfully_sent = false
+    this.user_wants_to_re_send_email = true
+  }
+
+  showNextScreen2() {
+    this.user_wants_to_re_send_email = false
+    this.email_will_be_re_sent_in_24_hours = true
+  }
+
+  sendEmail_and_showNextScreen2() {
+    this.sendEmail()
+    this.showNextScreen2()
+  }
+
+  ngOnInit(): void {
     this.sendEmail()
   }
 }
