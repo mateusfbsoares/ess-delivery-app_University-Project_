@@ -1,10 +1,13 @@
 import "jasmine";
 import request = require("request-promise");
+import { Coupon } from "../src/coupon";
 
 const baseUrl = "http://localhost:3000";
 
 const adminUrl = `${baseUrl}/promotion/admin`;
 const restUrl = `${baseUrl}/promotion/restaurants`;
+const userId = '11a84677';
+const userUrl = `${baseUrl}/user/${userId}`;
 
 describe("O servidor", () => {
 	var server: any;
@@ -17,7 +20,7 @@ describe("O servidor", () => {
 		server.closeServer();
 	});
 
-	// TESTES DE ADMIN
+	// -------------------------------------------------------------- TESTES DE ADMIN --------------------------------------------------------------
 
 	it("Exclui uma promoção no admin", () => {
 
@@ -131,7 +134,7 @@ describe("O servidor", () => {
 		});
 	});
 
-	// TESTES DE RESTAURANTE
+	// -------------------------------------------------------------- TESTES DE RESTAURANTE --------------------------------------------------------------
 
 	it("Exclui uma promoção do restaurante Mequi", () => {
 
@@ -245,6 +248,126 @@ describe("O servidor", () => {
 
 		return request(options).catch(({ statusCode }) => {
 			expect(statusCode).not.toBe(201);
+		});
+	});
+
+	// -------------------------------------------------------------- TESTES DE USUÁRIO --------------------------------------------------------------
+
+	it(`Lista os pedidos do usuário ${userId}` , () => {
+
+		const options: any = {
+			method: "GET",
+			uri: userUrl + "/orders",
+		};
+
+		return request(options).catch(({ statusCode }) => {
+			expect(statusCode).toBe(201);
+		});
+	});
+
+	it(`Finaliza um pedido do usuário ${userId}`, () => {
+
+		const body = {
+			order: {
+				products: [
+					{
+						name: "Big Méqui",
+						price: 15,
+						quantity: 2
+					},
+					{
+						name: "Cheddar Méquimelt",
+						price: 12,
+						quantity: 1
+					}
+				],
+				amount: 42,
+				restaurant: "Mequi",
+				address: "Avenida Tales de Mileto, 13, Barro",
+				// podia ter coupon tb
+			}
+		};
+
+		const options: any = {
+			method: "POST",
+			uri: userUrl + "/orders",
+			body,
+			json: true,
+		};
+
+		return request(options).catch(({ statusCode }) => {
+			expect(statusCode).toBe(201);
+		});
+	});
+
+	it(`Aplica cupom não existente ao pedido atual do usuário ${userId}`, () => {
+
+		const body = {
+			couponName: "TERCEIRACOMPRA",
+			order: {
+				address: "Av. Biel o Grande, 51, Pina",
+				products: [
+					{
+						name: "Méqui Shake",
+						price: 15,
+						quantity: 1
+					},
+					{
+						name: "Cheddar Méquimelt",
+						price: 12,
+						quantity: 3
+					}
+				],
+				amount: 51,
+				restaurant: "Mequi"
+			}
+		}
+
+		const options: any = {
+			method: "POST",
+			uri: userUrl + "/order",
+			body,
+			json: true,
+		};
+
+		return request(options).catch(({ statusCode }) => {
+			expect(statusCode).not.toBe(201);
+		});
+	});
+
+		
+	it(`Aplica cupom de admin ao pedido atual do usuário ${userId}`, () => {
+
+		const body = {
+			couponName: "SEGUNDACOMPRA",
+			order: {
+				address: "Av. Tales de Mileto, 13, Barro",
+				products: [
+					{
+						name: "Big Méqui",
+						price: 15,
+						quantity: 2
+					},
+					{
+						name: "Cheddar Méquimelt",
+						price: 12,
+						quantity: 1
+					}
+				],
+				amount: 42,
+				restaurant: "Mequi"
+			}
+		}
+
+		const options: any = {
+			method: "POST",
+			uri: userUrl + "/order",
+			body,
+			json: true,
+		};
+
+		return request(options).catch(({ statusCode }) => {
+			expect(statusCode).toBe(201);
 		});
 	});
 

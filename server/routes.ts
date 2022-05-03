@@ -260,7 +260,12 @@ routes.get('/user/:id/orders', function(req, res){
   const userId = req.params.id;
   const index = usersService.getUserIndex(userId);
   console.log(usersService.users[index]);
-  res.status(201).send(JSON.stringify(usersService.users[index].orders));
+  var orders = usersService.users[index].orders;
+  if (orders){
+    res.status(201).send(JSON.stringify(orders));
+  }  else {
+    res.status(404).send(JSON.stringify(orders));
+  }
 });
 
 // Adiciona cupom ao pedido
@@ -272,12 +277,14 @@ routes.post('/user/:id/order', function(req, res){
   var err;
   
   // se o cupom é de restaurante
+  
   var coupon: Coupon = restaurantsService[order.restaurant].getByName(couponName);
   if(coupon){
     applyCoupon();
   }else{
     // se não for, é de adm
     coupon = adminService.getByName(couponName);
+    
     if(coupon){
       applyCoupon();
     }else{
@@ -329,21 +336,21 @@ routes.post('/user/:id/orders', function(req, res){
   const index = usersService.getUserIndex(userId);
   var result = undefined;
   try {
-    if(order.amount >= order.coupon.minValue && order.coupon.status == "Ativo"){
-      result = usersService.addOrder(index, order);
-      if (result) {
-        res.status(201).send(result);
-        usersService.updateFile();
-        console.log("Pedido foi finalizado com sucesso");
-      }else {
-        res.status(403).send({ message: "Pedido não foi finalizado"});
-      }
-    }else{
-      result = usersService.removeCoupon(order);
-      if (result) {
-        res.status(403).send({ message: "Cupom inválido", result });
-      }
+    // if(order.amount >= order.coupon.minValue && order.coupon.status == "Ativo"){
+    result = usersService.addOrder(index, order);
+    if (result) {
+      res.status(201).send(result);
+      usersService.updateFile();
+      console.log("Pedido foi finalizado com sucesso");
+    }else {
+      res.status(403).send({ message: "Pedido não foi finalizado"});
     }
+    // }else{
+    //   result = usersService.removeCoupon(order);
+    //   if (result) {
+    //     res.status(403).send({ message: "Cupom inválido", result });
+    //   }
+    // }
     
   } catch (err) {
     const { message } = err;

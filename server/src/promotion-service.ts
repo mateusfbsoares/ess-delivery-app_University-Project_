@@ -23,7 +23,7 @@ export class PromotionService {
       return false;
     }
     else {
-      alert("O cupom deve conter apenas letras e números");
+      console.log("O cupom deve conter apenas letras e números");
       return true;
     }
   }
