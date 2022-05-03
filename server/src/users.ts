@@ -1,6 +1,8 @@
 import { Coupon } from "./coupon";
 import { product } from "./restaurants";
 
+import { PaymentMethod } from "./payment-method";
+
 export interface Order {
     id: string;
     products: product[];
@@ -15,6 +17,7 @@ export interface User {
     id: string;
     email: string;
     orders: Order[];
+    paymentMethods: PaymentMethod[];
 }
 
 export interface Admin {

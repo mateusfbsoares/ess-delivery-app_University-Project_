@@ -34,6 +34,21 @@ import { LogoutComponent } from './views/logout/logout.component';
 import { EmailComponent } from './email/email.component';
 import { EmailService } from './email/email.service';
 
+import { PaymentComponent } from './payment/payment.component';
+import { AddpaymentComponent } from './addpayment/addpayment.component';
+import { InsertcreditComponent } from './insertcredit/insertcredit.component';
+import { InsertdebitComponent } from './insertdebit/insertdebit.component';
+import { PaymentService } from './payment/payment.service';
+import { InsertcreditService } from './insertcredit/insertcredit.service';
+import { InsertdebitService } from './insertdebit/insertdebit.service';
+import { PaypalComponent } from './paypal/paypal.component';
+import { ErasepayComponent } from './erasepay/erasepay.component';
+import { PaypalService } from './paypal/paypal.service';
+import { PicpayService } from './picpay/picpay.service';
+import { ErasepayService } from './erasepay/erasepay.service';
+import { PicpayComponent } from './picpay/picpay.component';
+import { EditpayComponent } from './editpay/editpay.component';
+import { EditpayService } from './editpay/editpay.service';
 
 @NgModule({
   declarations: [
@@ -52,6 +67,14 @@ import { EmailService } from './email/email.service';
     CurrentOrderComponent,
     LogoutComponent,
     EmailComponent,
+    PaymentComponent,
+    AddpaymentComponent,
+    InsertcreditComponent,
+    InsertdebitComponent,
+    PaypalComponent,
+    PicpayComponent,
+    ErasepayComponent,
+    EditpayComponent
   ],
   imports: [
     BrowserModule,
@@ -108,20 +131,60 @@ import { EmailService } from './email/email.service';
         component: OrdersComponent
       },
       {
-        path: 'user/:id/payment',
-        component: ProfileComponent
-      },
-
-      {
         path: 'finished-order',
         component: EmailComponent
-      }
+  
+      },
+      {
+        path: 'user/pay',
+        component: PaymentComponent
+      },
+      {
+        path: 'addpayment',
+        component: AddpaymentComponent
+      },
+      {
+        path: 'addpayment/insertcredit',
+        component: InsertcreditComponent
+      },
+      {
+        path: 'addpayment/insertdebit',
+        component: InsertdebitComponent
+      },
+      {
+        path: 'addpayment/paypal',
+        component: PaypalComponent
+      },
+      {
+        path: 'addpayment/picpay',
+        component: PicpayComponent
+      },
+      {
+        path: 'erasepayment',
+        component:ErasepayComponent
+      },
+      {
+        path: 'editpayment',
+        component:EditpayComponent
+      }   
 
     ]),
     BrowserAnimationsModule
   ],
 
-  providers: [PromotionService, AdminService, LoginService, EditService, LocalStorageService, CurrentOrderService, EmailService],
+  providers: [
+    PromotionService, 
+    AdminService, 
+    LoginService, 
+    EditService, 
+    LocalStorageService, 
+    CurrentOrderService, 
+    EmailService,  
+    PaymentService, 
+    InsertcreditService, 
+    InsertdebitService, 
+    EditpayService
+  ],
 
   bootstrap: [AppComponent]
 })

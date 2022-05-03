@@ -1,9 +1,6 @@
 import express = require('express');
 import bodyParser = require("body-parser");
 
-import { PromotionService } from './src/promotion-service';
-import { Coupon } from './src/coupon';
-
 import routes from './routes'
 
 var app = express();
