@@ -40,7 +40,7 @@ export class ProfileComponent implements OnInit {
   }
 
   //DEBUG - simulação de pedido finalizado
-  toSimulateFinishedOrder(orderId) {
+  toSimulateFinishedOrder(orderId: string) {
     // set localstorage user.id and order.id so the email page can read them
     this.localStorage.set("user_id", this.user.id)
     this.localStorage.set("order_id", orderId)
