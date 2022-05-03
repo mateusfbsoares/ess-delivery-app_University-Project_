@@ -273,12 +273,12 @@ routes.post('/user/:id/order', function(req, res){
   var couponName: string = <string> req.body.couponName; // isso daqui pode mudar, order.coupon pode virar string
   var order: Order = <Order> req.body.order;
   var userId = req.params.id;
-  
   var err;
   
   // se o cupom é de restaurante
   
   var coupon: Coupon = restaurantsService[order.restaurant].getByName(couponName);
+
   if(coupon){
     applyCoupon();
   }else{
@@ -295,9 +295,11 @@ routes.post('/user/:id/order', function(req, res){
   function applyCoupon() {
     [order, err] = usersService.applyCouponInOrder(userId, order, coupon);
 
-    if (order.coupon == undefined) {
+    if (order.coupon.id == '') {
+      console.log(err);
       res.status(403).send(err);
     } else {
+      console.log(order);
       res.status(201).send(order);
     }
   }
@@ -305,29 +307,29 @@ routes.post('/user/:id/order', function(req, res){
 });
 
 // Deletar cupom do pedido do usuário
-routes.delete('/user/:id/order', function (req, res){
-  const userId = req.params.id
-  var couponName: string = <string> req.body.couponName;
-  var order: Order = <Order> req.body.order;
+// routes.delete('/user/:id/order', function (req, res){
+//   const userId = req.params.id
+//   var couponName: string = <string> req.body.couponName;
+//   var order: Order = <Order> req.body.order;
 
-  var coupon: Coupon = restaurantsService[order.restaurant].getByName(couponName);
+//   var coupon: Coupon = restaurantsService[order.restaurant].getByName(couponName);
 
-  if (coupon == undefined){
-    coupon = adminService.getByName(couponName);
-  }
+//   if (coupon == undefined){
+//     coupon = adminService.getByName(couponName);
+//   }
   
-  order.coupon = coupon;
-  order = usersService.removeCoupon(order);
+//   order.coupon = coupon;
+//   order = usersService.removeCoupon(order);
 
-  const message = `Coupon ${couponName} has been removed.`;
-  const err = "Não deu ein :(";
+//   const message = `Coupon ${couponName} has been removed.`;
+//   const err = "Não deu ein :(";
   
-  if (order) {
-    res.status(201).send({order, message});
-  } else {
-    res.status(404).send({ err });
-  }
-});
+//   if (order) {
+//     res.status(201).send({order, message});
+//   } else {
+//     res.status(404).send({ err });
+//   }
+// });
 
 // ADICIONAR UM PEDIDO AO ARRAY DE PEDIDOS DO USUÁRIO
 routes.post('/user/:id/orders', function(req, res){

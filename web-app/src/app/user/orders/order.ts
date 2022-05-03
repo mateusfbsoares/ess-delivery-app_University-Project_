@@ -11,7 +11,7 @@ export interface Order {
 }
 
 export const order = <Order> {
-    id: "124e",
+    id: "",
     restaurant: "BK",
     products: [],
     coupon: {
@@ -21,7 +21,7 @@ export const order = <Order> {
         minValue: 0,
         product: "",
         discount: 0,
-        status: "0"
+        status: ""
     },
     amount: 0,
     address: "",

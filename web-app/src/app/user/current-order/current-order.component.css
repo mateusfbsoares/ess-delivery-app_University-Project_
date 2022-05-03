@@ -1,5 +1,16 @@
+
 .product-list {
     display: flex;
+    background-color: var(--color-primary-darker);
+    border-radius: 1rem;
+}
+
+.cover {
+    background-color: var(--color-primary-darker);
+    border-radius: 1rem 1rem 0 0;
+    text-align: center;
+    width: 16rem;
+    margin-bottom: -1rem;
 }
 
 .product {
@@ -22,13 +33,16 @@
 .container {
     background-color: var(--color-primary-dark);
     border-radius: 0.8rem;
-    padding: 1rem;
+    padding: 2rem;
     margin: 1rem;
     position: center;
+    margin-top: 35rem;
 }
 
 .left {
-    justify-self: left;
+    text-align: left;
+    margin-left: 2rem;
+
 }
 
 .infos {
@@ -37,28 +51,106 @@
     margin: 1rem;
 }
 
-.input-block .coupon{
-    display: flex;
-}
-
-.input-block .coupon input {
-    margin-right: 1.5rem;
-    width: 40rem;
-    height: 6rem;
-}
-
-
 .buttons-container {
+    margin-top: 2rem;
     display: grid;
     justify-content: center;
     text-align: center;
 }
 
+.buttons-container a {
+    justify-self: center;
+}
+
+.block-payment img {
+    width: 4rem;
+    margin-left: 0.8rem;
+    cursor: pointer;
+}
+
+.block-2 {
+    display: grid;
+}
+
+.block-2-3 {
+    display: flex;
+    text-align: center;
+    justify-content: space-between;
+}
+
+.payment {
+    display: grid;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-primary-darker);
+    border-radius: 1rem;
+    padding: .8rem 1.3rem .8rem 1.3rem;
+    width: 30rem;
+}
+
+.payment label {
+    justify-self: left;
+    margin-bottom: .5rem;
+}
+
+.block-payment,
 .block-3 {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.block-3 img {
+    width: 3rem;
+    margin-left: 0.8rem;
+    cursor: pointer;
+}
+
+.block-3.withBackground {
+    background-color: var(--color-secondary);
+    width: 22rem;
+    height: 5rem;
+    border-radius: 1rem;
+    margin: 1rem;
+    justify-content: center;
+}
+
+.input-block.coupon input {
+    width: 20rem;
+    height: 4rem;
+    margin: 0;
+    font-size: 1.6rem;
+}
+
+.top-block {
     display: flex;
     justify-content: space-between;
 }
 
+.title {
+    font-size: 4rem;
+    margin-bottom: .8rem;
+    font-weight: bold;
+    margin-top: -4rem;
+    width: 50rem;
+    padding: .5rem;
+}
+
+.cover-pink {
+    font-size: 2.5rem;
+    font-weight: bold;
+    width: 22rem;
+    text-align: center;
+    height: 5rem;
+}
+
+.title,
+.cover-pink {
+    background-color: var(--color-secondary);
+    border-radius: 1rem;
+}
 
 
 

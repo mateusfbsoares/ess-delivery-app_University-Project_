@@ -1,4 +1,3 @@
-<!-- <router-outlet></router-outlet> -->
 <app-bar></app-bar>
 <div class="container">
   <div class="buttons-container add">
@@ -9,11 +8,5 @@
     </a>
   </div>
   <app-table></app-table>
-  <div class="buttons-container back">
-    <a class="back-link" alt="Botão de Sair" routerLink="/home">
-      <img alt="Ícone de seta para a esquerda" src="/assets/icons/arrow-left.svg"/>
-      Sair
-    </a>
-  </div>
+  <logout-button></logout-button>
 </div>
-<!-- <app-card [dataSource]="coupons" *ngFor="let coupons of coupons" [coupons]="coupons"></app-card> -->

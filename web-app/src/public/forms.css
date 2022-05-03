@@ -37,18 +37,6 @@
     margin: 1rem 0 1rem 0;
 }
 
-/* .input-block:focus-within::after,
-.textarea-block:focus-within::after{ //elemento dinâmico que só aparece quando algo algo está em foco(clicado)
-    content: "";
-
-    width: calc(100% - 3.2rem);
-    height: 2px;
-    background: var(--color-primary-light);
-    position: absolute; // ele é relativo à posição do input-block, somente porque eu indiquei no input-block que a position é relative
-    left: 1.6rem;
-    bottom: 0px;
-} 
-*/
 label{
     font-size: 1.8rem;
     padding-left: 1.2rem;
@@ -254,8 +242,6 @@ option:hover {
 option:checked {
     display: none;  
 }
-
-
 
 @media (max-width: 600px) {
 

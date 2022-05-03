@@ -28,6 +28,7 @@ import { LocalStorageService } from './local-storage.service';
 import { CurrentOrderComponent } from './user/current-order/current-order.component';
 import { OrdersService } from './user/orders/orders.service';
 import { CurrentOrderService } from './user/current-order/current-order.service';
+import { LogoutComponent } from './views/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { CurrentOrderService } from './user/current-order/current-order.service'
     LogoComponent,
     EditComponent,
     CurrentOrderComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
@@ -92,7 +94,7 @@ import { CurrentOrderService } from './user/current-order/current-order.service'
         component: ProfileComponent
       },
       {
-        path: 'user/:id/current-order',
+        path: 'user/:id/order',
         component: CurrentOrderComponent
       },
       {

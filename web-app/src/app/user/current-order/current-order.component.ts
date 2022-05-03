@@ -4,6 +4,7 @@ import { LocalStorageService } from 'src/app/local-storage.service';
 import { Restaurant, Product } from 'src/app/admin/restaurant';
 import { CurrentOrderService } from './current-order.service';
 import { Router } from '@angular/router';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-current-order',
@@ -18,51 +19,89 @@ export class CurrentOrderComponent implements OnInit {
   type: string;
   rest: Restaurant;
   curOrder: Order;
-  cupomName: string;
-
+  couponName: string;
+  discount: number;
+  free: string;
+  
   constructor(private service: CurrentOrderService, private route: Router) {
     this.curOrder = order;
+  }
+  
+  ngOnInit() {
+    this.type = this.localStorage.get('type');
+    this.data = this.localStorage.get(this.type);
+    this.curOrder.address = this.data.address;
+
+    this.service.getRestaurant("BK").then(res => {
+      this.rest = res;
+      this.curOrder.products = this.rest.products;
+      this.setZeroQuantity();
+      this.curOrder.amount = 0;
+      this.couponName = '';
+    });
+    
+    this.discount = 0;
   }
   
   setZeroQuantity(){
     this.curOrder.products.forEach(product => product.quantity = 0);
   }
   
+  updateFree(){
+    var f = this.curOrder.amount * (this.discount/100);
+    this.free = f.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  }
+
+  // só depois que eu percebi que não precisava fazer requisição no backend, era só atualizar aqui
+  // até porque nada muda no back
   insertCoupon() {
-    this.service.insertCoupon(this.cupomName, this.curOrder, this.data.id)
+    if(this.couponName == undefined || this.couponName == '') {
+      return alert("Campo de cupom não preenchido");
+    }
+    
+    this.service.insertCoupon(this.couponName, this.curOrder)
       .then(res => {
         this.curOrder = res;
-        if(this.curOrder.coupon) {
-          alert('rolou');
+        if(this.curOrder.coupon.id != '') {
+          this.discount = this.curOrder.coupon.discount*100;
+          this.updateFree();
+          alert("Cupom aplicado com sucesso!");
         } else {
-          alert('nao rolou');
+          alert("Cupom não pode ser aplicado!");
         }
-      })
+      }).catch(err => alert("Dados inválidos"));
   }
 
   back() {
     this.route.navigate(["user", this.data.id, "profile"]);
   }
 
-  updateAmount(){}
-  removeCoupon(){}
+  formatedAmount(){
+    return this.curOrder.amount.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  }
+
+  updateAmount(){
+    this.curOrder.amount = 0;
+    this.curOrder.products.forEach(product => {
+      this.curOrder.amount += (product.price * product.quantity);
+    })
+    this.updateFree();
+    this.curOrder.amount *= (1-(this.discount/100));
+  }
+
+  // não precisa fazer requisição no backend
+  removeCoupon() {
+    this.curOrder.coupon = order.coupon;
+    this.discount = 0;
+    this.updateAmount();
+    alert("Cupom removido com sucesso");
+  }
+
+
   confirmOrder(){}
 
   // e as de metodos de pagamento
   
-  ngOnInit() {
-    this.type = this.localStorage.get('type');
-    this.data = this.localStorage.get(this.type);
-    // alert("cheguei");
-    this.curOrder.address = this.data.address;
-    this.service.getRestaurant("BK").then(res => {
-      this.rest = res;
-      // alert("rest =>" + this.rest);
-      this.curOrder.products = this.rest.products;
-    });
-    this.setZeroQuantity();
-    
-  }
 
 }
 

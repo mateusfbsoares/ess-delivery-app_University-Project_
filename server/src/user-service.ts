@@ -65,7 +65,7 @@ export class UserService {
       return "Este cupom já foi utilizado";
     }
     // return order.amount >= coupon.minValue && order.coupon == undefined && coupon.status == "Ativo" && couponIndex == -1;
-    if (order.coupon != undefined) {
+    if (order.coupon.id != '') {
       return "Já existe um cupom aplicado ao pedido";
     }
     return "OK"
