@@ -44,6 +44,28 @@
                 },
                 "amount": 26.1,
                 "address": "Av. Tales de Mileto, 13, Barro"
+            },
+            {
+                "id": "8617918f",
+                "restaurant": "BK",
+                "products": [
+                    {
+                        "name": "Whopper Duplo",
+                        "price": 16,
+                        "quantity": 1
+                    }
+                ],
+                "coupon": {
+                    "id": "",
+                    "name": "",
+                    "adm": false,
+                    "minValue": 0,
+                    "product": "",
+                    "discount": 0,
+                    "status": ""
+                },
+                "amount": 16,
+                "address": "Av. Tales de Mileto, 13, Barro"
             }
         ]
     },
@@ -59,6 +81,24 @@
         "id": "11a84677",
         "address": "Av. Bernardo Vieira de Melo, 6569, Candeias",
         "email": "zenio@ess.com",
+        "paymentMethods": [
+            {
+                "type": "Cartao de Credito",
+                "name": "nubank(  ** 9999)",
+                "number": "4004333344449999",
+                "name_titular": "Zenio",
+                "cvv": 345,
+                "flag": "visa",
+                "email": "",
+                "id": 0
+            },
+            {
+                "type": "PicPay",
+                "name": "PicPay(zenio@ess.com)",
+                "email": "zenio@ess.com",
+                "id": 1
+            }
+        ],
         "orders": [
             {
                 "id": "5f9e9bc3",
