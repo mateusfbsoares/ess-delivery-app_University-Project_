@@ -1,34 +1,31 @@
-// import { Injectable }    from '@angular/core';
-// import { Http, Headers } from '@angular/http';
+import { Injectable } from '@angular/core';
+import { Http, Headers } from '@angular/http';
+import {User} from '../admin/user'
 
-// // import { Car } from './car';
+@Injectable({
+  providedIn: 'root'
+})
+export class PaymentService {
 
-// @Injectable()
-// export class PaymentService {
+  private headers = new Headers({'Content-Type': 'application/json'});
+  private taURL = 'http://localhost:3000';
 
-//   private headers = new Headers({'Content-Type': 'application/json'});
-//   private taURL = 'http://localhost:3000';
+  private currentURL: string;
 
-//   constructor(private http: Http) { }
+  constructor(private http: Http) {
+  }
 
-//     create(car: Car): Promise<Car> {
-//     return this.http.post(this.taURL + "/cars",JSON.stringify(car), {headers: this.headers})
-//       .toPromise()
-//       .then(res => {
-//         if (res.status === 201) {return car;} else {return null;}
-//       })
-//       .catch(this.catch);
-//   }
+  
+  //     user/pay
+  getuser(id: string): Promise<User[]> {
+    return this.http.get(this.taURL + "/users/" + id)
+             .toPromise()
+             .then(res => res.json() as User)
+             .catch(this.catch);
+  }
 
-//   getCars(): Promise<Car[]> {
-//     return this.http.get(this.taURL + "/cars")
-//              .toPromise()
-//              .then(res => res.json() as Car[])
-//              .catch(this.catch);
-//   }
-
-//   private catch(erro: any): Promise<any>{
-//     console.error('Oops, something went wrong',erro);
-//     return Promise.reject(erro.message || erro);
-//   }
-// }
+  private catch(erro: any): Promise<any>{
+    console.error('Oops, something went wrong',erro);
+    return Promise.reject(erro.message || erro);
+  }
+}
