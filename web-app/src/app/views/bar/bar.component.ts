@@ -17,7 +17,9 @@ export class BarComponent implements OnInit {
   type: string;
 
   goToHome() {
-    this.route.navigate(["/home"]);
+    if (confirm('Você tem certeza de que quer sair?')) {
+      this.route.navigate(["/home"]);
+    }
   }
 
   // to enable this functionality, the best thing would be to make different types of profiles, so we can know beforehand which route to go. This is not a main priority, so it should be implemented only if we are given more time.

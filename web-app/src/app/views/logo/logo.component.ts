@@ -12,7 +12,9 @@ export class LogoComponent implements OnInit {
   constructor(private route: Router) { }
 
   goToHome() {
-    this.route.navigate(["/home"]);
+    if (confirm('Você tem certeza de que quer sair?')) {
+      this.route.navigate(["/home"]);
+    }
   }
 
   ngOnInit() {
