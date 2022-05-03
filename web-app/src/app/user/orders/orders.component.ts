@@ -14,7 +14,7 @@ import { Order } from './order';
 })
 export class OrdersComponent implements OnInit {
 
-  displayedColumns: string[] = ['ID', 'Restaurante', 'Valor', 'Cupom', 'Comprovante via E-mail' ,'Comprovante via Download'];
+  displayedColumns: string[] = ['ID', 'Restaurante', 'Valor', 'Endereço', 'Comprovante via E-mail' ,'Comprovante via Download'];
   user: User;
   localStorage = new LocalStorageService();
 
