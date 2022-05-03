@@ -6,12 +6,15 @@ import { UserService } from './src/user-service';
 import { readFiles, restaurants } from './src/readFiles';
 import * as fs from 'fs';
 import { Order, Admin } from './src/users';
+import EmailService from './src/email-service';
 const routes = Router();
 
 // Inicialização
 var adminService: PromotionService = new PromotionService();
 var restaurantsService: PromotionService[] = [];
 var usersService: UserService = new UserService();
+var emailService: EmailService = new EmailService();
+
 var admins: Admin[] = [];
 
 // ----------------------------------------------------------------
@@ -360,4 +363,45 @@ routes.post('/user/:id/orders', function(req, res){
   }
 });
 
+// Envia email
+routes.post('/payment/confirm/:userid', async (req, res) => {
+  let userid = req.params.userid;
+  let order: Order = <Order> req.body;
+  
+  try {
+    const user = usersService.getUserById(userid);
+    console.log(user);
+    if(user) {
+      var msg: string = `Hi ${user.name}, your order has been confirmed ${JSON.stringify(order)}`;
+
+      var info = await emailService.sendMail(
+        {to:{name: user.name, email: user.email },
+        message:{subject: 'Order confirmation', body: msg}}
+      );
+      if(info.accepted) {
+        res.status(201).send({message: '201 Order confirmed', msg});
+      }
+    } else {
+      throw "User not found"
+    }
+  } catch (err) {
+    msg = err;
+    res.status(400).send( { msg });
+  }
+});
+
+
 export default routes;
+
+// Login
+// - [ ]  Checagem de ID pra ver se é realmente um cliente ou adm ou restaurante
+
+// User
+// - [x]  Pedido não alcançou o valor mínimo do cupom
+// - [x]  Cupom não pode ter um desconto maior que o valor do produto
+// - [x]  Não pode ter mais de um cupom em um pedido
+// - [x]  Verificar se o cupom está válido na hora da compra -> checar o status
+// - [x]  Perguntar se realmente é necessário checagem de data ou só o status do cupom já basta => não precisa checar data
+// - [x]  Cupom de primeira compra do app existe vitalício e só pode ser usado uma vez por cliente => só criar um exemplo
+// - [x]  Todo cupom só pode ser utilizado 1 vez por cliente
+// Checar se o cupom a ser inserido tem todos os campos preenchidos => exceto id

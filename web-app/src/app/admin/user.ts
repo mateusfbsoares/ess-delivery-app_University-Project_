@@ -5,6 +5,7 @@ import { Product } from "./restaurant";
 export interface User {
     name: string;
     id: string;
+    email: string;
     orders: Order[];
     paymentMethods: String[] // tem que adicionar metodo de pagamento aqui
 }
