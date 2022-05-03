@@ -21,8 +21,9 @@ export class CurrentOrderComponent implements OnInit {
   curOrder: Order;
   couponName: string;
   discount: number;
-  free: string;
-  
+  free: string = '';
+  totalDiscount: number = 0.0;
+
   constructor(private service: CurrentOrderService, private route: Router) {
     this.curOrder = order;
   }
@@ -48,7 +49,7 @@ export class CurrentOrderComponent implements OnInit {
   }
   
   updateFree(){
-    var f = this.curOrder.amount * (this.discount/100);
+    let f = this.curOrder.amount * (this.discount/100);
     this.free = f.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   }
 
@@ -61,10 +62,11 @@ export class CurrentOrderComponent implements OnInit {
     
     this.service.insertCoupon(this.couponName, this.curOrder)
       .then(res => {
-        this.curOrder = res;
-        if(this.curOrder.coupon.id != '') {
-          this.discount = this.curOrder.coupon.discount*100;
+      
+        if(res.coupon.id != '') {
+          this.discount = res.coupon.discount*100;
           this.updateFree();
+          this.curOrder = res;
           alert("Cupom aplicado com sucesso!");
         } else {
           alert("Cupom não pode ser aplicado!");
