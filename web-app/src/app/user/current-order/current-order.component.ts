@@ -98,7 +98,9 @@ export class CurrentOrderComponent implements OnInit {
   }
 
 
-  confirmOrder(){}
+  confirmOrder(){
+    this.route.navigate(["finished-order"]);
+  }
 
   // e as de metodos de pagamento
   

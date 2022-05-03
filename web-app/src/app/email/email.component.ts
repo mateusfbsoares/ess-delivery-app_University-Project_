@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Order } from '../user/orders/order';
 import { User } from '../admin/user'
 import { LocalStorageService } from '../local-storage.service';
@@ -24,21 +24,29 @@ export class EmailComponent implements OnInit {
   user_wants_to_re_send_email: boolean = false;
   email_will_be_re_sent_in_24_hours = false;
 
-  user: User = {
-    name: null,                              //string
-    id: this.localStorage.get('user_id'),    //string;
-    email: null,                             //string;
-    orders: null                             //Order[];
-  };
+  user: User;
 
   order: Order = {
-    id: this.localStorage.get('order_id'),   //string;
-    products: null,                          //Product[];
-    amount: null,                            //number;
-    coupon: null,                            //Coupon;
-    restaurant: null,                        //string;
-  }
+      id: undefined,
+      coupon: undefined,
+      address: "Av. Tales de Mileto, 13, Barro",
+      products: [
+        {
+          name: "Big Méqui",
+          price: 15,
+          quantity: 2
+        },
+        {
+          name: "Cheddar Méquimelt",
+          price: 12,
+          quantity: 1
+        }
+      ],
+      amount: 42,
+      restaurant: "Mequi"
+    
 
+  };
 
   async sendEmail() {
     const info = await this.emailService.sendEmail(this.user, this.order);
@@ -79,6 +87,7 @@ export class EmailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.user = this.localStorage.get('user');
     this.sendEmail()
   }
 }
