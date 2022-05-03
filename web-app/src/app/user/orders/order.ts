@@ -1,5 +1,8 @@
-import { Product } from 'src/app/admin/restaurant';
-import { Coupon } from 'src/app/admin/coupon';
+// import { Product } from 'src/app/admin/restaurant';
+import { Product } from '../../../../src/app/admin/restaurant';
+// import { Coupon } from 'src/app/admin/coupon';
+import { Coupon } from '../../../../src/app/admin/coupon';
+
 
 export interface Order {
     id: string;
@@ -10,7 +13,7 @@ export interface Order {
     address: string;
 }
 
-export const order = <Order> {
+export const order = <Order>{
     id: "",
     restaurant: "BK",
     products: [],

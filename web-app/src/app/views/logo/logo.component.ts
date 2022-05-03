@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-logo',
@@ -7,7 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LogoComponent implements OnInit {
 
-  constructor() { }
+  constructor(private route: Router) { }
+
+  goToHome() {
+    if (confirm('Você tem certeza de que quer sair?')) {
+      this.route.navigate(["/home"]);
+    }
+  }
 
   ngOnInit() {
   }

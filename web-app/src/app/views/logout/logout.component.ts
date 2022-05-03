@@ -10,12 +10,12 @@ export class LogoutComponent implements OnInit {
 
   localStorage = new LocalStorageService();
 
-  constructor(private route: Router) {}
+  constructor(private route: Router) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   logout() {
-    if(confirm('Você tem certeza de que quer sair?')){
+    if (confirm('Você tem certeza de que quer sair?')) {
       this.localStorage.clear();
       this.route.navigate(['/home']);
     }
