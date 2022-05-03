@@ -23,28 +23,68 @@ export class UserService {
         if (this.type == "PicPay"  || this.type == "PayPal") {
           this.email = metodo_pagamento.email;
         }
-    }
+      }
 
       }],
       identCount: 1,
       add : function (metodos_pagamento: Metodos_Pagamento): Metodos_Pagamento {
-        console.log("entrooou")
-        if (this.metodosPagamento.length == 5 || (metodos_pagamento.type != "Cartao de Credito" && metodos_pagamento.type != "Cartao de Debito" && metodos_pagamento.type != "Pix" && metodos_pagamento.type != "PicPay" && metodos_pagamento.type != "PayPal")) {
+        console.log("entrou 1")
+        if (this.metodosPagamento.length == 5  || (metodos_pagamento.type != "Cartao de Credito" && metodos_pagamento.type != "Cartao de Debito" && metodos_pagamento.type != "Pix" && metodos_pagamento.type != "PicPay" && metodos_pagamento.type != "PayPal")) {
           return null;
         }
-        const newMetodo = new Metodos_Pagamento(<Metodos_Pagamento> { ident: this.identCount, ...metodos_pagamento });
-        newMetodo.ident = this.identCount;
+        if(this.metodosPagamento.find((metodo: Metodos_Pagamento) => metodo == metodos_pagamento)){
+          console.log("entrou igualdade")
+          return null;
+        }
+          
+    
+        //checa se e-mail possui arroba
+        if(metodos_pagamento.type == "PayPal" || metodos_pagamento.type == "PicPay"){
+          let email = metodos_pagamento.email;
+          let regexvalidation = /^([a-z]){1,}([a-z0-9.-]){1,}([@]){1}([a-z]){2,}([.]){1}([a-z]){2,}([.]?){1}([a-z]?){2,}$/i;
+          if(regexvalidation.test(email) == false)return null;
+        }
+    
+        //validação cartao servidor
+        if(metodos_pagamento.type == "Cartao de Credito" || metodos_pagamento.type == "Cartao de Debito"){
+          
+          if(isNaN(Number(metodos_pagamento.number)) == true){
+            return null;
+          }
+    
+          if( String(metodos_pagamento.number).length != 16 ){
+            return null
+          }
+          if( String(metodos_pagamento.cvv).length != 3 ){
+            return null  
+          }
+    
+          if( metodos_pagamento.name_titular == undefined ){
+            return null
+          }
+          if( metodos_pagamento.flag != "visa" && metodos_pagamento.flag != "master"  ){
+            return null
+          }
+          if( metodos_pagamento.name == undefined ){
+            return null
+          }
+        }
+        
+        const newMetodo = new Metodos_Pagamento(<Metodos_Pagamento> { ident: this.identCount, type: metodos_pagamento.type, name: metodos_pagamento.name, ...metodos_pagamento });
         this.identCount = this.identCount+1;
-        console.log(newMetodo)
         this.metodosPagamento.push(newMetodo);
+        console.log("no add:")
+        console.log(newMetodo)
         return newMetodo;
       },
       update: function ( Id: number, metodos_pagamento: Metodos_Pagamento): Metodos_Pagamento {
-        console.log("antes if 1 ");
-        console.log(metodos_pagamento);
+        console.log("antes if2");
         var result: Metodos_Pagamento = this.getById(Id);
-    
+        
         if (result) {
+          if(metodos_pagamento.type == "PayPal" || metodos_pagamento.type == "PicPay"){
+            if(metodos_pagamento.email.split('@').length != 2)return null;
+          }
           result.update(metodos_pagamento);
           return result;
         }

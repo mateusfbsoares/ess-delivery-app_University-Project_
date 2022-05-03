@@ -46,6 +46,8 @@ export class EditpayComponent implements OnInit {
     console.log(novome);
   }
 
+
+  
   editPay(): void {
 
     var confirmId = prompt("confirme seu Id");
@@ -70,12 +72,18 @@ export class EditpayComponent implements OnInit {
     
     this.service.edit(this.user.id,this.mainPay).then(res => {
    
-      console.log(res)
-      this.service.getuser(this.user.id).then(user => {
-        localStorage.setItem("user" , JSON.stringify(user));
-        localStorage.removeItem("mainPay");
-        this.router.navigate(['/user/pay']);
-      })
+      if(res){
+        this.service.getuser(this.user.id).then(user => {
+          localStorage.setItem("user" , JSON.stringify(user));
+          localStorage.removeItem("mainPay");
+          this.router.navigate(['/user/pay']);
+        })
+      }
+      else{
+        alert("confira se inseriu os dados corretamente")
+      }
+    
+      
     });
     
   }

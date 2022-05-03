@@ -37,12 +37,13 @@ routes.get('/user/:id/metodos', function(req, res){
 
   //get user
   routes.get('/users/:id', (req, res) => {
+    console.log("entroou get")
     let id = req.params.id;
     const user = usersService.getUserById(id);
-  
+    console.log(user)
     if(user) {
       const msg = `user found ${user.id}`;
-      res.status(200).send(user);
+      res.status(201).send(user);
       console.log();
     } else {
       const err = `user not found`;
@@ -53,12 +54,15 @@ routes.get('/user/:id/metodos', function(req, res){
   routes.post('/user/:id/metodos', function(req, res){
     console.log("entrou no poste");
     const userId = req.params.id;
+    console.log(usersService.users)
     const index = usersService.getUserIndex(userId);
+    console.log(userId);
+    console.log(index);
     console.log("antes do cast");
     const metodo: Metodos_Pagamento = <Metodos_Pagamento> req.body;
     console.log(metodo);
     try {
-      console.log(usersService.users[index])
+      console.log("antes result")
       const result = usersService.users[index].metodos_de_pagamento.add(metodo);
       console.log("resulta aqui:")
       console.log(result);
@@ -88,13 +92,15 @@ routes.get('/user/:id/metodos', function(req, res){
     if (result) {
       console.log("depois:")
       console.log(result);
-      res.send(metodo);
+      res.status(201).send(metodo);
     } else {
       res.status(404).send({ message: `Inconsistents datas.`});
     }
   });
   
   routes.delete('/user/:idUser/metodos/:idPay', function(req, res){
+
+    console.log("entroou deleetee")
     const userId = req.params.idUser;
     const methodId = req.params.idPay;
     const index = usersService.getUserIndex(userId);

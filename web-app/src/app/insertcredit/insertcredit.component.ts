@@ -91,13 +91,12 @@ export class InsertcreditComponent implements OnInit {
         localStorage.setItem("mainPay" , JSON.stringify(res));
       }
      
-      if(res != null){
+      if(res){
         console.log("deu bom 201");
         this.goToComponentB();
       }
-
       else{
-        console.log("deu ruim 400");
+        alert("confira se colocou os dados corretamente")
       }
 
     });

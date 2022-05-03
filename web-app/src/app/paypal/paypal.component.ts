@@ -84,18 +84,15 @@ export class PaypalComponent implements OnInit {
       if(this.checou == "checado"){
         localStorage.setItem("mainPay" , JSON.stringify(res));
       }
-     
-      if(res != null){
+      
+      if(res){
         console.log("deu bom 201");
         this.goToComponentB();
       }
+     
+    }).catch(erro => alert("Confira seus dados"));
 
-      else{
-        console.log("deu ruim 400");
-      }
-
-    });
-
+    
   }
 
   goToComponentB(): void {
