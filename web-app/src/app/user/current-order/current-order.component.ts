@@ -102,6 +102,8 @@ export class CurrentOrderComponent implements OnInit {
 
   confirmOrder(){
     let order, user;
+    this.curOrder.products = this.curOrder.products.filter(p => p.quantity != 0);
+    
     this.service.createOrder(this.curOrder, this.data.id)
     .then(res => {
       user = res[0];
