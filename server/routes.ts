@@ -262,9 +262,9 @@ routes.get('/user/:id/orders', function(req, res){
   console.log(usersService.users[index]);
   var orders = usersService.users[index].orders;
   if (orders){
-    res.status(201).send(JSON.stringify(orders));
-  }  else {
-    res.status(404).send(JSON.stringify(orders));
+    res.status(201).send(orders);
+  } else {
+    res.status(404).send(orders);
   }
 });
 

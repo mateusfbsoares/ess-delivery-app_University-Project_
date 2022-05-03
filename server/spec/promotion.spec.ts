@@ -268,24 +268,22 @@ describe("O servidor", () => {
 	it(`Finaliza um pedido do usuário ${userId}`, () => {
 
 		const body = {
-			order: {
-				products: [
-					{
-						name: "Big Méqui",
-						price: 15,
-						quantity: 2
-					},
-					{
-						name: "Cheddar Méquimelt",
-						price: 12,
-						quantity: 1
-					}
-				],
-				amount: 42,
-				restaurant: "Mequi",
-				address: "Avenida Tales de Mileto, 13, Barro",
-				// podia ter coupon tb
-			}
+			products: [
+				{
+					name: "Big Méqui",
+					price: 15,
+					quantity: 2
+				},
+				{
+					name: "Cheddar Méquimelt",
+					price: 12,
+					quantity: 1
+				}
+			],
+			amount: 42,
+			restaurant: "Mequi",
+			address: "Avenida Tales de Mileto, 13, Barro",
+			// podia ter coupon tb
 		};
 
 		const options: any = {

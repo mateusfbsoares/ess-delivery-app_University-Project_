@@ -25,12 +25,12 @@
         {{order.amount | currency: 'BRL'}}
       </td>
     </div>
-    <div matColumnDef="Cupom">
+    <div matColumnDef="Endereço">
       <th class="column-name" mat-header-cell *matHeaderCellDef>
-        <label>Cupom</label>
+        <label>Endereço</label>
       </th>
       <td class="column-value" *matCellDef="let order">
-        {{order.coupon.name}}
+        {{order.address}}
       </td>
     </div>    
 
