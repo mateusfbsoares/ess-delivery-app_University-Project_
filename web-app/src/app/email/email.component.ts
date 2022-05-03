@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Order, User } from '../admin/user';
+import { ActivatedRoute } from '@angular/router';
+import { Order } from '../user/orders/order';
+import { User } from '../admin/user'
 import { LocalStorageService } from '../local-storage.service';
 import { EmailService } from './email.service';
 

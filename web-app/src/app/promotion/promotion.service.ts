@@ -38,11 +38,9 @@ export class PromotionService {
     this.currentURL = path.replace("/add", "");
     this.currentURL = this.currentURL.replace("-coupon", "");
     this.currentURL = this.currentURL.replace("rest", "restaurants");
-    // alert(this.currentURL);
   }
 
   setAttributes(coupon){
-    //console.log('a', this.currentURL);
     if(this.currentURL == ADMIN){
       coupon.adm = true;
       coupon.product = "Nenhum";
@@ -55,33 +53,22 @@ export class PromotionService {
   createCoupon(coupon: Coupon): Promise<Coupon> { 
     this.init();
     this.setAttributes(coupon);
-    // alert("criando cupom -> " + this.currentURL);
     return this.http.post(this.taURL + this.currentURL, JSON.stringify(coupon), { headers: this.headers })
       .toPromise()
       .then(res => {
         if (res.status === 201) {
-          alert("Cupom cadastrado com sucesso");
+          alert("Cupom cadastrado com sucesso!");
           return res.json() as Coupon;
         } else {
-          alert("Cupom não pode ser adicionado");
+          alert("Cupom não pode ser adicionado!");
           return null;
         }
       })
       .catch(this.catch);
   }
 
-  // editCoupon(couponName: string, coupon: Coupon): Promise<Coupon[]> {
-  
-  //   return this.http.put(this.taURL + this.currentURL + "/" + couponName, JSON.stringify(coupon))
-  //            .toPromise()
-  //            .then(res => res.json() as Coupon[])
-  //            .catch(this.catch);
-  // }
-
   getCoupons(): Promise<Coupon[]> {
     this.init();
-    // alert("entrou no get");
-
     return this.http.get(this.taURL + this.currentURL)
              .toPromise()
              .then(res => res.json() as Coupon[])
@@ -89,8 +76,6 @@ export class PromotionService {
   }
 
   private catch(erro: any): Promise<any> {
-    // alert("Cupom não pode ser adicionado");
-    // console.error('Oops, something went wrong', erro);
     return Promise.reject(erro.message || erro);
   }
 }

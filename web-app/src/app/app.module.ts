@@ -25,8 +25,15 @@ import { LogoComponent } from './views/logo/logo.component';
 import { EditComponent } from './promotion/edit/edit.component';
 import { EditService } from './promotion/edit/edit.service';
 import { LocalStorageService } from './local-storage.service';
+
+import { CurrentOrderComponent } from './user/current-order/current-order.component';
+import { OrdersService } from './user/orders/orders.service';
+import { CurrentOrderService } from './user/current-order/current-order.service';
+import { LogoutComponent } from './views/logout/logout.component';
+
 import { EmailComponent } from './email/email.component';
 import { EmailService } from './email/email.service';
+
 
 @NgModule({
   declarations: [
@@ -42,6 +49,8 @@ import { EmailService } from './email/email.service';
     OrdersComponent,
     LogoComponent,
     EditComponent,
+    CurrentOrderComponent,
+    LogoutComponent,
     EmailComponent,
   ],
   imports: [
@@ -91,8 +100,8 @@ import { EmailService } from './email/email.service';
         component: ProfileComponent
       },
       {
-        path: 'user/:id/current-order',
-        component: ProfileComponent
+        path: 'user/:id/order',
+        component: CurrentOrderComponent
       },
       {
         path: 'user/:id/orders',
@@ -111,7 +120,9 @@ import { EmailService } from './email/email.service';
     ]),
     BrowserAnimationsModule
   ],
-  providers: [PromotionService, AdminService, LoginService, EditService, LocalStorageService, EmailService],
+
+  providers: [PromotionService, AdminService, LoginService, EditService, LocalStorageService, CurrentOrderService, EmailService],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

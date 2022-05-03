@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
-import { Order, User } from '../admin/user';
+import { Order } from '../user/orders/order';
+import { User } from '../admin/user'
 import { LocalStorageService } from '../local-storage.service';
 
 @Injectable()

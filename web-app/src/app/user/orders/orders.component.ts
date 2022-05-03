@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Http } from '@angular/http';
-import { MatTable } from '@angular/material/table';
+import { Http } from '@angular/http'; 
+import { MatTable } from '@angular/material/table';               
+import { Router } from '@angular/router';
+
 import { User } from 'src/app/admin/user';
 import { EmailService } from 'src/app/email/email.service';
 import { LocalStorageService } from 'src/app/local-storage.service';
@@ -14,24 +16,23 @@ import { Order } from './order';
 })
 export class OrdersComponent implements OnInit {
 
-  displayedColumns: string[] = ['ID', 'Restaurante', 'Valor', 'Cupom', 'Comprovante via E-mail', 'Comprovante via Download'];
+  displayedColumns: string[] = ['ID', 'Restaurante', 'Valor', 'Endereço', 'Comprovante via E-mail' ,'Comprovante via Download'];
+  
   user: User;
   localStorage = new LocalStorageService();
 
-  private taURL = 'http://localhost:3000';
-  private currentURL: string;
-
-  constructor(private http: Http, private emailService: EmailService) {
-    this.currentURL = window.location.pathname;
-  }
+  constructor(private http: Http, private route: Router, private emailService: EmailService) {}
 
   ngOnInit(): void {
     this.user = this.localStorage.get('user');
-    var order: Order[] = this.user.orders;
-    console.log(order);
+  }
+
+  toCurrentOrder(){
+    this.route.navigate(['user', this.user.id, 'current-order']);
   }
 
   @ViewChild(MatTable) table: MatTable<Order>;
+
 
   sendEmail(order: Order) {
     this.emailService.sendEmailWithOrder(order).then((response) => {
