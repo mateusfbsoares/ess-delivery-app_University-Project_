@@ -36,16 +36,19 @@ export class UserService {
   // ------------------------------------------------------------------
   
   // adiciona um pedido ao usuário (após a finalização)
-  addOrder(userIndex: number, order: Order): User {
+  addOrder(userIndex: number, order: Order): [User, Order] {
     const idOrder = crypto.randomBytes(4).toString('HEX'); 
-
-    const newOrder = <Order> { id: idOrder , ...order};
-   
+    console.log(idOrder)
+    order.id = idOrder;
+    const newOrder = order//<Order> { id: idOrder , ...order};
+    
+    console.log(newOrder);
+    
     this.users[userIndex].orders.push(newOrder);
- 
-    console.log(this.users[userIndex].orders);
-
-    return this.users[userIndex];
+    
+    //console.log(this.users[userIndex].orders);
+    
+    return [this.users[userIndex], newOrder];
   }
   
   couponCanBeApplied(userId: string, order: Order, coupon: Coupon) : string{

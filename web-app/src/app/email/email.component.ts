@@ -26,27 +26,7 @@ export class EmailComponent implements OnInit {
 
   user: User;
 
-  order: Order = {
-      id: undefined,
-      coupon: undefined,
-      address: "Av. Tales de Mileto, 13, Barro",
-      products: [
-        {
-          name: "Big Méqui",
-          price: 15,
-          quantity: 2
-        },
-        {
-          name: "Cheddar Méquimelt",
-          price: 12,
-          quantity: 1
-        }
-      ],
-      amount: 42,
-      restaurant: "Mequi"
-    
-
-  };
+  order: Order;
 
   async sendEmail() {
     const info = await this.emailService.sendEmail(this.user, this.order);
@@ -88,6 +68,7 @@ export class EmailComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.localStorage.get('user');
+    this.order = this.localStorage.get('order');
     this.sendEmail()
   }
 }

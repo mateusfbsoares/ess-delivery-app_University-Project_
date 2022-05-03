@@ -89,7 +89,7 @@ export class PaymentMethodService {
       if(regexvalidation.test(email) == false)return null;
       
       result.email = method.email;
-      result.name = result.type + result.email
+      result.name = result.type + "(" +result.email + ")";
     
       return result;
     }

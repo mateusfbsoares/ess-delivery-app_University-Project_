@@ -1,1 +1,1 @@
-[{"id":"6b83f9cb","name":"SEGUNDACOMPRA","adm":true,"minValue":15,"product":"Nenhum","discount":0.5,"status":"Ativo"}]
+[{"id":"6b83f9cb","name":"PRIMEIRACOMPRA","adm":true,"minValue":15,"product":"Nenhum","discount":0.5,"status":"Ativo"},{"id":"40d347a5","name":"TESTE","adm":true,"minValue":10,"product":"Nenhum","discount":0.1,"status":"Ativo"}]

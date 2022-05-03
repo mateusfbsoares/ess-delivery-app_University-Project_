@@ -3,6 +3,7 @@ import { Http, Headers } from '@angular/http';
 import { Alert } from 'selenium-webdriver';
 import { Restaurant } from 'src/app/admin/restaurant';
 import { Order } from '../orders/order';
+import { User } from '../../admin/user'
 
 @Injectable()
 export class CurrentOrderService {
@@ -37,6 +38,19 @@ export class CurrentOrderService {
       }
     })
     .catch(this.catch);
+  }
+
+  createOrder(order:Order, userid:string): Promise<[Order, User]>{
+    return this.http.post(this.taURL + '/user/'+ userid + '/orders', JSON.stringify(order), {headers: this.headers})
+    .toPromise()
+    .then(res => {
+      if(res.status == 201) {
+        return res.json() as [Order, User];
+      } else {
+        throw "Erro na finalizacao do pedido";
+      }
+    })
+    .catch(this.catch)
   }
 
   private catch(erro: any): Promise<any>{

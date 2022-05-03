@@ -29,7 +29,7 @@ export class OrdersComponent implements OnInit {
   }
 
   toCurrentOrder() {
-    this.route.navigate(['user', this.user.id, 'current-order']);
+    this.route.navigate(['user', this.user.id, 'order']);
   }
 
   @ViewChild(MatTable) table: MatTable<Order>;

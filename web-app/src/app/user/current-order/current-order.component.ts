@@ -99,7 +99,18 @@ export class CurrentOrderComponent implements OnInit {
 
 
   confirmOrder(){
-    this.route.navigate(["finished-order"]);
+    let order, user;
+    this.service.createOrder(this.curOrder, this.data.id)
+    .then(res => {
+      user = res[0];
+      order = res[1];
+      console.log(order);
+      this.localStorage.set('user', user);
+      this.localStorage.set('order', order);
+      this.route.navigate(["finished-order"]);
+    })
+    .catch(err=> console.log(err));
+    
   }
 
   // e as de metodos de pagamento
