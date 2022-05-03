@@ -56,7 +56,7 @@
       <th class="column-name" mat-header-cell *matHeaderCellDef>
         <label>Comprovante via Download</label>
       </th>
-      <td (click)="dowloadReceipt()" class="column-value" *matCellDef="let order">
+      <td (click)="dowloadReceipt(order)" class="column-value" *matCellDef="let order">
         <img src="/assets/icons/download.svg" alt="download">
       </td>
     </div>

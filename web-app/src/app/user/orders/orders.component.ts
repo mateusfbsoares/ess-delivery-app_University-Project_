@@ -57,7 +57,7 @@ export class OrdersComponent implements OnInit {
     document.body.removeChild(element);
   }
 
-  dowloadReceipt() {
+  dowloadReceipt(order: Order) {
     const receipt = generateOrderReceipt(this.user, order)
     this.download("Comprovante de Pedido.txt", receipt)
   }
