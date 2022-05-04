@@ -28,7 +28,7 @@ export class PaymentComponent implements OnInit {
   }
 
   findmain():void{
-
+    
     for (var pagamento of this.user.paymentMethods){
 
       if(this.mainName == pagamento.name){
@@ -37,8 +37,15 @@ export class PaymentComponent implements OnInit {
       }
 
     }
-
   }
+
+  changePay() {
+    if(this.mainPay.name != this.mainName) {
+      alert('Voce alterou seu metodo de pagamento padrao')
+      this.findmain();
+    }
+  }
+
   goToErase(){
 
     this.findmain();
