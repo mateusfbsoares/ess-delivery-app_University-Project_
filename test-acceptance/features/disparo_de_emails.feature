@@ -1,20 +1,55 @@
 Feature: Disparo de e-mails
 
     # Scenario 1
-    Scenario: Usuário finaliza o pedido com sucesso.
+    Scenario: Usuário finaliza o pedido com sucesso e retorna à página de perfil.
         Given o usuário mileto está na página de confirmação do pedido 578dbdea
-        And mileto finaliza o pedido
-        Then o sistema começa o processo de disparo de e-mail com comprovante do pedido 578dbdea para mileto
+        And mileto finaliza o pedido 578dbdea
+        And mileto clica no botão de voltar ao perfil
+        Then o sistema vai para a página de perfil do usuário mileto
 
-# # Scenario 2
-# Scenario: Usuário finaliza o pedido com sucesso, mas quer que o e-mail de confirmação seja reenviado.
-#     Given o usuário “mateuzinho” está na página de pedidos confirmados
-#     And o usuário “mateuzinho” deseja que o e-mail de confirmação do pedido “001” seja enviado novamente
-#     When o usuário “mateuzinho” pede o reenvio do email com comprovante do pedido “001”
-#     Then o sistema envia novamente um email para sua conta com um comprovante do pedido “001”.
+    # Scenario 2
+    Scenario: Usuário finaliza o pedido com sucesso, afirma que não recebeu e-mail, mas logo após resolve voltar à página de perfil.
+        Given o usuário mileto está na página de confirmação do pedido 578dbdea
+        And mileto finaliza o pedido 578dbdea
+        And mileto clica no botão relatando que não recebeu nenhum e-mail
+        And mileto muda de idiea e clica no botão de voltar ao perfil
+        Then o sistema vai para a página de perfil do usuário mileto
+
+    # Scenario 3
+    Scenario: Usuário finaliza o pedido com sucesso, pede para que o e-mail seja enviado, e volta à página de pefil
+        Given o usuário mileto está na página de confirmação do pedido 578dbdea
+        And mileto finaliza o pedido 578dbdea
+        And mileto clica no botão relatando que não recebeu nenhum e-mail
+        And mileto clica no botão de re-enviar e-mail com comprovante de pedido
+        And mileto clica no botão de voltar ao perfil
+        Then o sistema vai para a página de perfil do usuário mileto
+
+    # Scenario 4
+    Scenario: Após finalizar o pedido e retornar ao perfil, o usuário quer que o e-mail com comprovante seja reenviado.
+        Given o usuário mileto está na página de perfil
+        And o usuario mileto entra na página de pedidos passados
+        And o usuario mileto clica no ícone de reenviar comprovante de pedido por e-mail
+    # Then o usuário é informado de se foi um sucesso ou não o envio do e-mail
+
+    # Scenario 5
+    Scenario: Após finalizar o pedido e retornar ao perfil, o usuário quer que o e-mail com comprovante seja reenviado.
+        Given o usuário mileto está na página de perfil
+        And o usuario mileto entra na página de pedidos passados
+        And o usuario mileto clica no ícone de fazer download do comprovante de pedido
+# Then o sistema realiza o download do comprovante de pedido.
 
 
-# # Scenario 3
+
+##### Features/cenários com testes não implementados #####
+
+## (só envolve backend) (api não oferece suporte a isso)
+# Scenario: O usuário responde email de comprovante de pedido
+#     Given o usuário recebe um email do sistema com o comprovante do pedido “001”
+#     And
+#     When o usuário “mateuzinho” envia um email respondendo este email
+#     Then O sistema envia um e-mail avisando que o endereço de email para o qual ele enviou um email não recebe respostas, e oferece um email de suporte.
+
+# (necessita do backend para simular uma falha)
 # Scenario: O usuário termina o pedido mas acontece uma falha com o sistema
 #     Given o usuário "mateuzinho" está na página de confirmação do pedido “001”
 #     And o usuário "mateuzinho" finaliza o pedido  “001”
@@ -22,24 +57,7 @@ Feature: Disparo de e-mails
 #     When o pedido “001” não é completado
 #     Then o sistema envia um email avisando que houve um erro na finalização do pedido “001” e que o usuário “mateuzinho” deve tentar novamente mais tarde.
 
-# # Scenario 4
-# Scenario: Após finalizar o pedido, o cliente quer baixar o comprovante diretamente do aplicativo
-#     Given o usuário “mateuzinho” finaliza o pedido número “001”
-#     And o usuario clica no botão de baixar comprovante do pedido “001”
-#     Then o usuário faz o baixa o comprovante do pedido “001” em pdf.
-
-
-# Features/cenários não implementados
-
-## API de disparo de e-mails não oferece suporte
-# Scenario: O usuário responde email de comprovante de pedido
-#     Given o usuário recebe um email do sistema com o comprovante do pedido “001”
-#     And
-#     When o usuário “mateuzinho” envia um email respondendo este email
-#     Then O sistema envia um e-mail avisando que o endereço de email para o qual ele enviou um email não recebe respostas, e oferece um email de suporte.
-
-
-# ## faltou tempo para implementar
+# (faltou tempo para implementar a feature e os testes)
 # Scenario: O cliente não completa o pedido totalmente
 #     Given o usuário “mateuzinho” está fazendo o pedido “001”
 #     And o usuário “mateuzinho” fecha o aplicativo
