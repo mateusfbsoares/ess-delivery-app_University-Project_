@@ -1,0 +1,49 @@
+<app-bar></app-bar>
+<div>
+<h2 class="header-home">Configurações de pagamento</h2>
+<div class="buttons-container">
+  <a class="confirm-link" (click)="goToComponentB()">
+    <img alt="Ícone de cartão de crédito" src="/assets/icons/plus.svg"/>
+    Inserir método de pagamento
+ </a>
+</div>
+
+<div class="buttons-container">
+  <a class="confirm-link" (click)="goToEdit()">
+    <img alt="Ícone de cartão de crédito" src="/assets/icons/edit.svg"/>
+    Atualizar método de pagamento
+  </a>
+</div>
+
+<div class="buttons-container">
+  <a class="confirm-link" (click)="goToErase()">
+    <img alt="Ícone de cartão de crédito" src="/assets/icons/trash.svg"/>
+    Remover método de pagamento 
+  </a>
+</div>
+
+
+  <div class="selection" > 
+    <h3>Pagamento Padrão:</h3>
+    <div>
+       <select class="options" id ="mySelect" [(ngModel)]="mainName" disableRipple>
+          <option *ngFor="let pagamento of user.paymentMethods" [value]="pagamento.name">
+            {{pagamento.name}}
+          </option>
+       </select>
+    </div>   
+  </div>
+</div>
+
+<div class="buttons-container">
+  <a class="back-link" (click)="backPage()">
+     <img alt="Ícone de Voltar" src="/assets/icons/arrow-left.svg"/>
+     Voltar
+  </a>
+</div>
+  
+
+
+
+
+
