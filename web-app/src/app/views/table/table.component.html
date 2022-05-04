@@ -13,7 +13,7 @@
       <th class="column-name" mat-header-cell *matHeaderCellDef>
         <label>Nome</label>
       </th>
-      <td class="column-value" *matCellDef="let coupon"> 
+      <td class="column-value" *matCellDef="let coupon" id="name-{{coupon.name}}" name="coupon-name"> 
           {{coupon.name}}
       </td>
     </div>
@@ -57,7 +57,7 @@
         <label>Editar</label>
       </th>
       <td class="column-value"  *matCellDef="let coupon"> 
-        <img alt="Ícone de Lápis no Papel" src="/assets/icons/edit_color.svg" (click)="editData(coupon)" />
+        <img name="edit-{{coupon.name}}" alt="Ícone de Lápis no Papel" src="/assets/icons/edit_color.svg" (click)="editData(coupon)" />
       </td>
     </div>
     <div matColumnDef="Deletar">
@@ -65,7 +65,7 @@
         <label>Deletar</label>
       </th>
       <td *matCellDef="let coupon"> 
-        <img class="trash" alt="Ícone de lixeira" src="/assets/icons/trash.svg" (click)="removeData(coupon.name)"/>
+        <img name="trash-{{coupon.name}}" class="trash" alt="Ícone de lixeira" src="/assets/icons/trash.svg" (click)="removeData(coupon.name)"/>
       </td>
     </div>
 

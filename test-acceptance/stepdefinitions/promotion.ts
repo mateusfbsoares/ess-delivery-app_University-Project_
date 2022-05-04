@@ -1,4 +1,4 @@
-import { defineSupportCode } from 'cucumber';
+/*import { defineSupportCode } from 'cucumber';
 import { browser, $, element, ElementArrayFinder, by } from 'protractor';
 
 let chai = require('chai').use(require('chai-as-promised'));
@@ -12,7 +12,7 @@ let sameNumber = ((elem, number) => elem.element(by.name('numberlist')).getText(
 let sameName = ((elem, name) => elem.element(by.name('namelist')).getText().then(text => text === name));
 let sameType = ((elem, type) => elem.element(by.name('typelist')).getText().then(text => text === type));
 
-let pAND = ((p,q) => p.then(a => q.then(b => a && b)))
+let pAND = ((p,q) => p.then(a => q.then(b => a && b)))*/
 /*
 defineSupportCode(function ({ Given, When, Then}) {
     Given(/^o usuário está na página de inserção de método de pagamento$/, async () => {
@@ -35,7 +35,7 @@ defineSupportCode(function ({ Given, When, Then}) {
         allelementos.filter(elem => sameName(elem,'limite')).then(elems => expect(Promise.resolve(elems.length)).to.eventually.equal(1));
     });
 })*/
-
+/*
 defineSupportCode(function ({ Given, When, Then}) {
     Given(/^O usuario esta na pagina "Home"$/, async() => {
         await browser.get(baseURL + "home");
@@ -51,3 +51,4 @@ defineSupportCode(function ({ Given, When, Then}) {
         await expect(browser.getTitle()).to.eventually.equal('login');
     });
 })
+*/
