@@ -69,7 +69,7 @@ Given o "restaurant" "Mequi" está na página de listagem de cupons
 Given o cupom "2CHEDDINHAPOR1" "não aparece" na página de listagem de cupons
 When o "restaurant" "Mequi" tenta cadastrar o cupom "2CHEDDINHAPOR1" e um desconto de "1.5" com valor mínimo "20.00", associado ao produto "Cheddar Méquimelt" com status "Inativo"
 Then o cupom "2CHEDDINHAPOR1" "não é cadastrado"
-Then o cupom "2CHEDDINHAPOR1" "não aparece" na página de listagem de cuponss
+Then o cupom "2CHEDDINHAPOR1" "não aparece" na página de listagem de cupons
 
 Scenario: cadastro de cupom bem-sucedido por administrador
 Given o "admin" "ceb04ad1" está na página de listagem de cupons
