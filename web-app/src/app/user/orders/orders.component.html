@@ -48,7 +48,8 @@
         <label>Comprovante via E-mail</label>
       </th>
       <td class="column-value" *matCellDef="let order">
-        <img src="/assets/icons/externalLink.svg" alt="external-link" (click)="sendEmail(order)">
+        <img name="resend-email-link" src="/assets/icons/externalLink.svg" alt="external-link"
+          (click)="sendEmail(order)">
       </td>
     </div>
 
@@ -56,7 +57,7 @@
       <th id="last" class="column-name" mat-header-cell *matHeaderCellDef>
         <label>Comprovante via Download</label>
       </th>
-      <td (click)="dowloadReceipt(order)" class="column-value" *matCellDef="let order">
+      <td name="dowload-receipt-button" (click)="dowloadReceipt(order)" class="column-value" *matCellDef="let order">
         <img src="/assets/icons/download.svg" alt="download">
       </td>
     </div>
