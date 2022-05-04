@@ -23,6 +23,8 @@ export class CurrentOrderComponent implements OnInit {
   discount: number;
   free: string = '';
   totalDiscount: number = 0.0;
+  mainPay: any;
+  mainName: any;
 
   constructor(private service: CurrentOrderService, private route: Router) {
     this.curOrder = order;
@@ -42,6 +44,15 @@ export class CurrentOrderComponent implements OnInit {
     });
     
     this.discount = 0;
+
+    this.mainPay = JSON.parse(localStorage.getItem("mainPay"));
+  
+    if(this.mainPay == null){
+      this.mainPay = this.data.paymentMethods[0];
+      localStorage.setItem("mainPay" , JSON.stringify(this.mainPay));
+    }
+    
+    this.mainName = this.mainPay.name;
   }
   
   setZeroQuantity(){
