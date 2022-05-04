@@ -24,10 +24,18 @@ export class EditComponent implements OnInit {
   
   ngOnInit(){
     this.coupon = this.localStorage.get('coupon');
-    this.status = this.coupon.status;
+    this.setStatus();
     this.type = this.localStorage.get('type');
     this.data = this.localStorage.get(this.type);
     this.newCoupon.product=this.coupon.product;
+  }
+
+  setStatus(){
+    if(this.coupon.status == "Ativo"){
+      this.status = "Ativo";
+      document.getElementById("status").click();
+    }
+    this.activate();
   }
 
   activate(): void {

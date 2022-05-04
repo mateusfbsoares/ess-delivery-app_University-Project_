@@ -2,10 +2,10 @@
 <h2 class="header-home">Insira seu ID</h2>
 <div class="forms-block">
   <div class="input-block" >
-     <input placeholder="ID" id="id" [(ngModel)]="clientId">
+     <input name='login' placeholder="ID" id="id" [(ngModel)]="clientId">
   </div>
   <div class="buttons-container">
-     <a class="pink-link" (click)="checkType(clientId)">
+     <a name='login' class="pink-link" (click)="checkType(clientId)">
         Log in
      </a>
   </div>

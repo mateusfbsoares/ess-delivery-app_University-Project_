@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../local-storage.service';
 import { Admin } from './admin';
@@ -18,10 +19,11 @@ export class AdminComponent implements OnInit {
   localStorage = new LocalStorageService();
   type: string;
 
-  constructor(private route: Router) {}
+  constructor(private route: Router, private serviceTitle: Title)  {}
 
   ngOnInit(): void {
     this.type = this.localStorage.get('type');
+    this.serviceTitle.setTitle(this.type);
   }
 
   checkType(): void {
