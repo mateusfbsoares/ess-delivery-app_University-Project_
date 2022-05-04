@@ -5,7 +5,10 @@
     <div class="top-block">
       <h2 class="left cover-pink">Restaurante: {{curOrder.restaurant}}</h2>
       <div>
-        <h2 class="header-home">Valor do pedido: {{formatedAmount()}}</h2>
+        <div class="div-amount">
+          <h2 class="header-home">Valor do pedido: </h2>
+          <h2 class="header-home amount">{{formatedAmount()}}</h2>
+        </div>
         <span *ngIf="curOrder.coupon.name != ''">Economizou: {{free}}</span>
         <label><i>Endereço de entrega: {{curOrder.address}}</i> </label>
       </div>
@@ -24,9 +27,9 @@
     <div class="block-2">
         
       <div class="payment">
-        <label>Método de pagamento:</label>
+        <label >Método de pagamento:</label>
         <div class="block-payment">
-          <select class="options" [(ngModel)]="paymentMethod" disableRipple>
+          <select class="options" [(ngModel)]="mainName" disableRipple>
             <option *ngFor="let payment of data.paymentMethods" [value]="payment.name">
               {{payment.name}}
             </option>
