@@ -25,7 +25,6 @@ export class PromotionComponent implements OnInit {
   ngOnInit(): void {
     this.type = this.localStorage.get('type');
     this.data = this.localStorage.get(this.type);
-
   }
 
   activate(): void {

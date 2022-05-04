@@ -42,7 +42,7 @@ export class TableComponent implements OnInit {
       this.service.removeCoupon(couponName)
       .then(updatedCoupons => {
         this.localStorage.set('coupons', updatedCoupons);
-        alert("Cupom excluído com sucesso!");
+        // alert("Cupom excluído com sucesso!");
       })
       .catch(erro => {
         alert(erro);
