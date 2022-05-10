@@ -7,7 +7,7 @@
         "paymentMethods": [
             {
                 "type": "Cartao de Credito",
-                "name": "nubank(  ** 5555)",
+                "name": "nubank(** 5555)",
                 "number": "4004333344445555",
                 "name_titular": "matheus ferreira",
                 "cvv": 345,
